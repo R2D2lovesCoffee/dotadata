@@ -1,0 +1,8 @@
+Invoker:
+main_damage_per_interval(chaos meteor) aghs/talents parsing error
+attack_speed_bonus(alacrity) aghs/talents parsing error
+attack_damage_bonus(alacrity) aghs/talents parsing error
+
+Sky
+secondy_target_search_radius(arcange bolt) aghs/talents parsing error
+Concussive Shot: damage_amp / slow_radius united

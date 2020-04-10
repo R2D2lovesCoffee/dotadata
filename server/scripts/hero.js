@@ -44,8 +44,9 @@ exported.getHeroDetails = (name) => {
 
     return axios.get(`https://dota2.gamepedia.com/${heroNameForURL}`).then(response => response.data).then(data => {
         const root = parse(data);
-        const content = root.querySelector('#mw-content-text').childNodes[0];
-        const tbody = content.childNodes[2].childNodes[1];
+        // const content = root.querySelector('#mw-content-text').childNodes[0];
+        // const tbody = content.childNodes[2].childNodes[1];
+        const tbody = root.querySelector('.infobox').childNodes.find(elem => elem.tagName === 'tbody');
         const trs = tbody.childNodes.filter(elem => elem.tagName === 'tr');
         const inTbody = trs[1].childNodes.find(elem => elem.tagName === 'td').childNodes.find(elem => elem.tagName === 'table').childNodes.find(elem => elem.tagName === 'tbody');
         const inTrs = inTbody.childNodes.filter(elem => elem.tagName === 'tr');
@@ -76,6 +77,8 @@ exported.getHeroDetails = (name) => {
         stats.mpLv30 = rawTextToNumber(mpTds[4].childNodes[0].rawText);
         const mpRegTds = inTrs[5].childNodes.filter(elem => elem.tagName === 'td');
         stats.mpRegLv0 = rawTextToNumber(mpRegTds[0].childNodes[0].rawText);
+        // console.log(mpRegTds[0].childNodes[0].rawText.trim().length);
+        // console.log(stats.mpRegLv0, typeof stats.mpRegLv0, stats.mpRegLv0.length);
         stats.mpRegLv1 = rawTextToNumber(mpRegTds[1].childNodes[0].rawText);
         stats.mpRegLv15 = rawTextToNumber(mpRegTds[2].childNodes[0].rawText);
         stats.mpRegLv25 = rawTextToNumber(mpRegTds[3].childNodes[0].rawText);
@@ -143,21 +146,29 @@ exported.getHeroData = (heroName) => {
     return axios.get(`https://dota2.gamepedia.com/${heroNameForURL}`).then(response => response.data).then(data => {
         const root = parse(data);
         const content = root.querySelector('#mw-content-text').childNodes[0];
-        const descriptionTag = content.childNodes[4];
+        const descriptionTag = content.childNodes.find(elem => elem.tagName === 'p');
         descriptionTag.childNodes.forEach(childNode => description += childNode.rawText);
         const rangeAndMainAttr = descriptionTag.childNodes.filter(childNode => childNode.tagName === 'a').slice(0, 2);
-        range = rangeAndMainAttr[0].childNodes[0].rawText;
-        mainAttribute = rangeAndMainAttr[1].childNodes[0].rawText;
-        const splits = description.split(',');
+        try {
+            range = rangeAndMainAttr[0].childNodes[0].rawText;
+            mainAttribute = rangeAndMainAttr[1].childNodes[0].rawText;
+        } catch (err) {
+            console.log('ERROR WHEN GETTING RANGE/MAIN ATTRIBUTE FOR HERO ' + heroName)
+        }
         const rawNames = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[0].childNodes.find(node => node.tagName === 'span').rawText;
         const name = rawNames.split(',')[0];
         const nickname = rawNames.split(',').length > 1 ? rawNames.split(',')[1].trim() : null;
 
-        const tbody = content.childNodes[2].childNodes[1];
+        // const tbody = content.childNodes[2].childNodes[1];
+        const tbody = root.querySelector('.infobox').childNodes.find(elem => elem.tagName === 'tbody');
         const trs = tbody.childNodes.filter(elem => elem.tagName === 'tr');
-
-        const imgMedium = trs[0].childNodes.find(elem => elem.tagName === 'th')
-            .childNodes.filter(elem => elem.tagName === 'div')[0].childNodes[0].childNodes[0].getAttribute('src');
+        let imgMedium = null;
+        try {
+            imgMedium = trs[0].childNodes.find(elem => elem.tagName === 'th')
+                .childNodes.filter(elem => elem.tagName === 'div')[0].childNodes[0].childNodes[0].getAttribute('src');
+        } catch (err) {
+            console.log('ERROR WHEN GETTING IMGMEDIUM FOR HERO ' + heroName);
+        }
 
         const audioBio = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[1].childNodes.find(elem => elem.tagName === 'span').childNodes[0].childNodes[0].getAttribute('src');
         const lore = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[2].childNodes.filter(elem => elem.tagName === 'div')[0].childNodes.filter(elem => elem.tagName === 'div')[1].rawText;

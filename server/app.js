@@ -16,4 +16,19 @@ app.get('/heroes', async (req, res) => {
     res.send({ ...hero, ...heroData, ...heroDetails, spells })
 })
 
+async function all() {
+    const heroes = await heroManager.getHeroesStats();
+    heroes.shift();
+    let total = 0;
+    for (hero of heroes) {
+        const { name } = hero;
+        await heroManager.getHeroData(name);
+        await heroManager.getHeroDetails(name);
+        await spellManager.getHeroSpells(name);
+        total++;
+        console.log(hero.name + ' done' + '(total:' + total + ')');
+    }
+    console.log('done');
+}
+// all();
 module.exports = app;

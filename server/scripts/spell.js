@@ -13,7 +13,7 @@ exported.getHeroSpells = heroName => {
             const spellCard = spellDiv.parentNode.childNodes[0].childNodes[0];
             // const spellNotes = spellDivs[3].parentNode.childNodes[2];
             const parts = spellCard.childNodes.filter(elem => elem.tagName === 'div');
-            return { ...getSpellInfo1(parts[0]), ...getSpellInfo2(parts[1]), ...getSpellInfo3(parts[2]) };
+            return { ...getSpellInfo1(parts[0]), ...getSpellInfo2(parts[1]), ...getSpellInfo3(parts[2], heroName) };
         })
 
     })
@@ -93,16 +93,15 @@ const getSpellInfo2 = root => {
     } else {
         generals.affects = null
     }
-
-    // generals.ability = abilitiesRaw ? abilitiesRaw.split('/').map(elem => elem.trim()) : [];
-    // generals.affects = affectsRaw ? affectsRaw.split('/').map(elem => elem.trim()) : [];
-    // generals.damage = damageRaw ? damageRaw.split('/').map(elem => elem.trim()) : [];
     return { img, description, generals };
 }
 
-const getSpellInfo3 = root => {
+const getSpellInfo3 = (root, name) => {
     const kids = root.childNodes.filter(node => node.tagName === 'div');
-    const loreNode = kids[kids.length - 1].childNodes.find(elem => elem.tagName === 'i');
+    let loreNode = null;
+    if (kids[kids.length - 1]) {
+        loreNode = kids[kids.length - 1].childNodes.find(elem => elem.tagName === 'i');
+    }
     const lore = loreNode ? loreNode.rawText : '';
     let cooldown = null;
     let mana = null;
@@ -148,6 +147,12 @@ const getSpellInfo3 = root => {
 
                 if (props[prop].talents && props[prop].aghs) {
                     props[prop].both = spanNode.rawText.substring(spanNode.rawText.indexOf(',') + 1, spanNode.rawText.lastIndexOf(')')).trim().split('/').map(elem => rawTextToNumber(elem))
+                }
+
+                let problem = false;
+                Object.keys(props[prop]).forEach(key => problem = props[prop][key].some(elem => typeof elem !== 'number'));
+                if (problem) {
+                    console.log('PROBLEM FOR PROP ' + prop + ' at hero ' + name);
                 }
             }
         } else {
@@ -199,18 +204,27 @@ const getSpellInfo1 = root => {
     const links = root.childNodes[1];
 
     const soundNodes = links.childNodes.filter(elem => elem.tagName === 'span');
-    const sounds = soundNodes.map(soundNode => soundNode.childNodes[0].childNodes.find(elem => elem.tagName === 'audio').childNodes.find(elem => elem.tagName === 'source').getAttribute('src'));
+    let sounds;
+    try {
+        sounds = soundNodes.map(soundNode => soundNode.childNodes.find(elem => elem.tagName === 'span').childNodes.find(elem => elem.tagName === 'audio').childNodes.find(elem => elem.tagName === 'source').getAttribute('src'));
+    } catch (err) {
+        sounds = null;
+    }
 
     const keyNodes = links.childNodes.filter(elem => elem.tagName === 'div');
-    const hotKey = keyNodes[0].childNodes.find(elem => elem.tagName === 'span').rawText;
-    const legacyKey = keyNodes[1].childNodes.find(elem => elem.tagName === 'span').rawText;
+    let hotKey = null;
+    let legacyKey = null;
+    if (keyNodes[0] && keyNodes[1]) {
+        hotKey = keyNodes[0].childNodes.find(elem => elem.tagName === 'span').rawText;
+        legacyKey = keyNodes[1].childNodes.find(elem => elem.tagName === 'span').rawText;
+    }
 
     const interactNodes = links.childNodes.filter(elem => elem.tagName === 'a');
     const interacts = interactNodes.map(interactNode => {
         const img = interactNode.childNodes.find(elem => elem.tagName === 'img');
         return { img: img.getAttribute('src'), description: img.getAttribute('alt') }
     })
-    return { sounds, name, hotKey, legacyKey, interacts };
+    return { sounds: sounds, name, hotKey, legacyKey, interacts };
 }
 
 module.exports = exported;
