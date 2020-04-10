@@ -1,5 +1,0 @@
-skill.props.cast_point when = x + y -/
-
-skill.generals when aghs/talents -/
-
-hero.name/nickname (Anti-mage); -/

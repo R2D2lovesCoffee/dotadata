@@ -1,4 +1,8 @@
 const app = require('./app');
-const { port } = require('./config');
+const { PORT } = require('./config');
 
-app.listen(port, console.log(`server started on port ${port}`));
+const connection = require('./database/connection');
+connection.authenticate();
+
+
+app.listen(PORT, console.log(`server started on port ${PORT}`));

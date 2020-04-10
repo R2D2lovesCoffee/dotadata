@@ -145,9 +145,7 @@ const getSpellInfo3 = root => {
                 if (aghsATag) {
                     props[prop].aghs = props[prop].talents ? spanNode.rawText.substring(spanNode.rawText.lastIndexOf('(') + 1, spanNode.rawText.indexOf(',')).trim().split('/').map(elem => rawTextToNumber(elem)) : spanNode.rawText.substring(spanNode.rawText.indexOf('(') + 1, spanNode.rawText.indexOf(')')).trim().split('/').map(elem => rawTextToNumber(elem))
                 }
-                // props[prop].aghs = aghsATag ? (
-                //     props[prop].talents ? spanNode.rawText.substring(spanNode.rawText.lastIndexOf('(') + 1, spanNode.rawText.indexOf(',')).trim().split('/').map(elem => rawTextToNumber(elem)) : spanNode.rawText.substring(spanNode.rawText.indexOf('(') + 1, spanNode.rawText.indexOf(')')).trim().split('/').map(elem => rawTextToNumber(elem))
-                // ) : null;
+
                 if (props[prop].talents && props[prop].aghs) {
                     props[prop].both = spanNode.rawText.substring(spanNode.rawText.indexOf(',') + 1, spanNode.rawText.lastIndexOf(')')).trim().split('/').map(elem => rawTextToNumber(elem))
                 }
