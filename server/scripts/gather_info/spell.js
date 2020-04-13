@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { parse } = require('node-html-parser');
-const { rawTextToNumber } = require('./utils');
+const { rawTextToNumber } = require('../utils');
 const exported = {};
 
 exported.getHeroSpells = heroName => {

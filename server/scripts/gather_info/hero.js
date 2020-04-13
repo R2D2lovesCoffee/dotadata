@@ -1,7 +1,7 @@
 
 const axios = require('axios');
 const { parse } = require('node-html-parser');
-const { rawTextToNumber } = require('./utils');
+const { rawTextToNumber } = require('../utils');
 
 const exported = {};
 
@@ -126,7 +126,7 @@ exported.getHeroDetails = (name) => {
         baseStats.attackRange = rawTextToNumber(inTrs2[4].childNodes.find(elem => elem.tagName === 'td').childNodes[0].rawText);
         baseStats.projectileSpeed = rawTextToNumber(inTrs2[5].childNodes.find(elem => elem.tagName === 'td').childNodes[0].rawText);
         const atackAnimations = inTrs2[6].childNodes.find(elem => elem.tagName === 'td').childNodes.filter(elem => elem.tagName === 'span').map(elem => elem.childNodes[0].rawText).map(elem => rawTextToNumber(elem));
-        baseStats.attackAnimation = { point: atackAnimations[0], backswing: atackAnimations[1] };
+        baseStats.attackAnimation = { point: atackAnimations[0], backswing: !isNaN(Number(atackAnimations[1])) ? Number(atackAnimations[1]) : null };
         baseStats.baseAttackTime = rawTextToNumber(inTrs2[7].childNodes.find(elem => elem.tagName === 'td').childNodes[0].rawText);
         baseStats.dmgBlock = rawTextToNumber(inTrs2[8].childNodes.find(elem => elem.tagName === 'td').childNodes[0].rawText);
         baseStats.collisionSize = rawTextToNumber(inTrs2[9].childNodes.find(elem => elem.tagName === 'td').childNodes[0].rawText);
@@ -170,10 +170,10 @@ exported.getHeroData = (heroName) => {
             console.log('ERROR WHEN GETTING IMGMEDIUM FOR HERO ' + heroName);
         }
 
-        const audioBio = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[1].childNodes.find(elem => elem.tagName === 'span').childNodes[0].childNodes[0].getAttribute('src');
+        const audio = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[1].childNodes.find(elem => elem.tagName === 'span').childNodes[0].childNodes[0].getAttribute('src');
         const lore = root.querySelector('#heroBio').childNodes.filter(node => node.tagName === 'div')[2].childNodes.filter(elem => elem.tagName === 'div')[0].childNodes.filter(elem => elem.tagName === 'div')[1].rawText;
 
-        return { range, mainAttribute, description, name, nickname, imgMedium, bio: { audioBio, lore } };
+        return { range, mainAttribute, description, name, nickname, imgMedium, bio: { audio, lore } };
     })
 }
 

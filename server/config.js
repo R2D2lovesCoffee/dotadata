@@ -6,6 +6,7 @@ try {
     lines = fs.readFileSync('./.env', 'utf8').split('\n');
 } catch (err) {
     console.log('The .env file doesn\'t exist. Please create the file according to example.env file.');
+    console.log(err);
     process.exit();
 }
 lines.forEach(line => {
