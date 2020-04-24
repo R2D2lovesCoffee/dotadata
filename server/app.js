@@ -1,5 +1,10 @@
-const app = require('express')();
+const express = require('express');
+const path = require('path');
+const app = express();
 const bodyParser = require('body-parser');
+
+
+app.use(require('cors')());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
@@ -8,9 +13,9 @@ const Spell = require('./database/models/Spell');
 const HeroDetail = require('./database/models/HeroDetail');
 const SpellSound = require('./database/models/SpellSound');
 const SpellDetail = require('./database/models/SpellDetail');
-const {parseSpell} = require('./scripts/parse');
+const { parseSpell } = require('./scripts/parse');
 
-app.get('/heroes', async (req, res) => {
+app.get('/api/heroes', async (req, res) => {
     const { name } = req.query;
     Hero.findOne({
         where: { name }, include: [
@@ -18,7 +23,7 @@ app.get('/heroes', async (req, res) => {
             {
                 model: Spell, as: 'spells', include: [
                     { model: SpellSound, as: 'sounds' },
-                    { model: SpellDetail, as: 'spellDetails'}
+                    { model: SpellDetail, as: 'spellDetails' }
                 ]
             },
         ]
@@ -28,5 +33,10 @@ app.get('/heroes', async (req, res) => {
     })
         .catch(err => console.log(err));
 })
+
+app.use(express.static(path.join(__dirname, '../dota-data/build')));
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../dota-data/build', 'index.html'));
+});
 
 module.exports = app;

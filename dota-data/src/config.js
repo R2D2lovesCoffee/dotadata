@@ -1,0 +1,1 @@
+export const host = 'http://86.121.216.121:5000'
