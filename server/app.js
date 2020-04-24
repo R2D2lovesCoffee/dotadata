@@ -7,6 +7,8 @@ const Hero = require('./database/models/Hero');
 const Spell = require('./database/models/Spell');
 const HeroDetail = require('./database/models/HeroDetail');
 const SpellSound = require('./database/models/SpellSound');
+const SpellDetail = require('./database/models/SpellDetail');
+const {parseSpell} = require('./scripts/parse');
 
 app.get('/heroes', async (req, res) => {
     const { name } = req.query;
@@ -15,11 +17,13 @@ app.get('/heroes', async (req, res) => {
             { model: HeroDetail, as: 'heroDetails' },
             {
                 model: Spell, as: 'spells', include: [
-                    { model: SpellSound, as: 'sounds' }
+                    { model: SpellSound, as: 'sounds' },
+                    { model: SpellDetail, as: 'spellDetails'}
                 ]
             },
         ]
-    }).then(hero => {
+    }).then(hero => hero.dataValues).then(hero => {
+        hero.spells = hero.spells.map(spell => parseSpell(spell))
         res.send(hero);
     })
         .catch(err => console.log(err));
