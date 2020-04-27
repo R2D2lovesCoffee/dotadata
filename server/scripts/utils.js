@@ -11,5 +11,8 @@ module.exports = {
             return Number(rawText.split('\\')[0].trim());
         }
         return rawText.split('\\')[0].trim();
+    },
+    randomNumber: (minimum, maximum) => {
+        return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
     }
 }

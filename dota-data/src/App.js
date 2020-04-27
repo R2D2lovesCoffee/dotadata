@@ -4,9 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
 import Home from './components/views/Home';
 import Login from './components/views/Login';

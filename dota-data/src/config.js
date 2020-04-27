@@ -1,1 +1,1 @@
-export const host = 'http://86.121.216.121:5000'
+export const host = 'http://86.121.216.114:5000/api'
