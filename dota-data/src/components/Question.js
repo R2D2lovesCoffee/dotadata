@@ -37,6 +37,7 @@ export default function Question(props) {
     return (
         <div>
             <p>ceva de genul</p>
+            <h1>titlu</h1>
             <div>{text}</div>
             <Subject type={subjectType} content={subject} />
             <div>
