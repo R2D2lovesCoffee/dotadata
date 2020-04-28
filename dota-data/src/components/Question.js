@@ -38,6 +38,11 @@ export default function Question(props) {
         <div>
             <p>ceva de genul</p>
             <h1>titlu</h1>
+            <ol>
+                <li>mere</li>
+                <li>pere</li>
+                <li>prune</li>
+            </ol>
             <div>{text}</div>
             <Subject type={subjectType} content={subject} />
             <div>
