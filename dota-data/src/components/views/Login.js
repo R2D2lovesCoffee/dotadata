@@ -38,6 +38,7 @@ function Login() {
                 <input value={password} onChange={handlePasswordChange} placeholder="password" type="password" />
             </div>
             <button onClick={login}>login</button>
+            <p>{message}</p>
             {/* <button onClick={() => localStorage.removeItem('access_token')}>logout</button> */}
         </div>
     )
