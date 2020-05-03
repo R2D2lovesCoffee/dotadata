@@ -8,7 +8,7 @@ import {
 import Home from './components/views/Home';
 import Login from './components/views/Login';
 import Protected from './components/Protected';
-import Register from './components/views/Registe'
+import Register from './components/views/Register';
 
 function App() {
   return (
