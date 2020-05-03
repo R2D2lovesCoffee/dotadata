@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { host } from '../config';
 import Subject from './Subject';
 import Answer from './Answer';
+import http from '../http';
 
 export default function Question(props) {
     const [text, setText] = useState('');
@@ -15,8 +15,7 @@ export default function Question(props) {
     const [start, setStart] = useState(false);
 
     const getQuestion = () => {
-        axios.get(`${host}/random-question`)
-            .then(resp => resp.data)
+        http.get('/random-question')
             .then(data => {
                 setCorrectAnswer(data.correctAnswer);
                 setText(data.text);
