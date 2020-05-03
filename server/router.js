@@ -8,6 +8,31 @@ const SpellSound = require('./database/models/SpellSound');
 const { parseSpell } = require('./scripts/parse');
 const { randomNumber } = require('./scripts/utils');
 const Question = require('./scripts/questions/Question');
+const User = require('./database/models/User');
+const bcrypt = require('bcrypt');
+
+router.post('/register', async (req, res) => {
+    const { email } = req.body;
+    const { password } = req.body;
+
+    try {
+        const existingUser = await User.findOne({ where: { email } });
+        if (existingUser) {
+            res.status(409).send();
+        } else {
+            // iei codul de mai sus...
+            const salt = await bcrypt.genSalt(10);
+            const password_hash = await bcrypt.hash(password, salt);
+
+            await User.create({ email, password_hash });
+            res.send();
+        }
+    } catch (error) {
+        res.status(500).send();
+        console.log(error);
+    }
+
+})
 
 router.get('/heroes', async (req, res) => {
     const { name } = req.query;
