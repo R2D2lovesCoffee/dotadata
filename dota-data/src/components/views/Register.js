@@ -22,32 +22,33 @@ function Register() {
         setConfirmPassword(event.target.value);
     }
 
+    const register = () => {
+        if (password === confirmPassword) {
+            http.post('/register', { email, password })
+                .then(resp => {
+                    history.push('/login');
+                }).catch(error => {
+                    console.log(error);
+                    if (error.message) {
+                        setMessage(error.message);
+                    }
+                })
+        }
+    }
+
     return (
         <div>
-            <form>
-
-                <input type="email" required placeholder="Email" onChange={handleEmailChange} />
-                <input type="password" placeholder="Password" onChange={handlePasswordChange} />
-                <input type="password" placeholder="Confirm passowrd" onChange={handleConfirmPasswordChange} />
-                <input type="submit" value="Submit" onClick={register} />
-                <p>{this.state.message}</p>
-            </form>
+            <div>
+                <input value={email} required placeholder="Email" onChange={handleEmailChange} />
+                <input value={password} type="password" placeholder="Password" onChange={handlePasswordChange} />
+                <input value={confirmPassword} type="password" placeholder="Confirm passowrd" onChange={handleConfirmPasswordChange} />
+                <button onClick={register} >REGISTER</button>
+                <p>{message}</p>
+            </div>
         </div>
     )
 }
 
-const register = () => {
-    if (this.password === this.confirmPassword) {
-        http.post('/register', { email, password })
-            .then(resp => {
-                if (resp.access_token) {
-                    localStorage.setItem('access_token', resp.access_token);
-                }
-            }).catch(error => {
-                console.log(error);
-                if (error.message) {
-                    setMessage(error.message);
-                }
-            })
-    }
-}
+
+
+export default Register;
