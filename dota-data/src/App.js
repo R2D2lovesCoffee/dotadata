@@ -8,6 +8,7 @@ import {
 import Home from './components/views/Home';
 import Login from './components/views/Login';
 import Protected from './components/Protected';
+import Register from './components/views/Registe'
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
         </Route>
         <Route path="/">
           <Home />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
       </Switch>
     </Router>
