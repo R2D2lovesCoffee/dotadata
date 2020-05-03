@@ -18,9 +18,9 @@ function Register() {
         <div>
             <form>
 
-                <input type="email" required placeholder />
-                <input />
-                <input />
+                <input type="email" required placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Confirm passowrd" />
 
             </form>
         </div>
