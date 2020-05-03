@@ -11,7 +11,7 @@ const http = {};
         }
         params.options = { headers: config.headers }
         return axios[method](...Object.values(params)).then(response => response.data)
-            .catch(error => Promise.reject(error.response))
+            .catch(error => Promise.reject(error.response.data))
     }
 })
 

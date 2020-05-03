@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Subject from './Subject';
 import Answer from './Answer';
 import http from '../http';
