@@ -23,15 +23,16 @@ if (!allKeysSet) {
     console.log('The .env file requires specific keys. You can find them in example.env file.');
     process.exit();
 }
+module.exports = config;
 // cum ar zice wd. 'wait for it!'
-module.exports = {
-    DBHOST:'localhost',
-    PORT:5000,
-    DBDIALECT:'mysql',
-    DBNAME: 'dota_data',
-    DBUSER:'root',
-    DBPASS: 'baschetnba68'
-};
+// module.exports = {
+//     DBHOST:'localhost',
+//     PORT:5000,
+//     DBDIALECT:'mysql',
+//     DBNAME: 'dota_data',
+//     DBUSER:'root',
+//     DBPASS: 'baschetnba68'
+// };
 //stai asa sa iti fac user la proiect sa poti da push ah. ai cont de github? fa-ti repede unul. www.github.com inchide ochii cat timp fac sa nu mi furi datecu le.
 //cu config.js sa nu dai push niciodata. 
 //practic tot codul din fisierul asta e inutil la tine. dintr-un annume motiv. asa ca am scris obiectul ala de mana
