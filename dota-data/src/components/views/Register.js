@@ -38,11 +38,15 @@ function Register() {
 
     return (
         <div>
-            <div>
+            <div className="form">
                 <input value={email} required placeholder="Email" onChange={handleEmailChange} />
                 <input value={password} type="password" placeholder="Password" onChange={handlePasswordChange} />
                 <input value={confirmPassword} type="password" placeholder="Confirm passowrd" onChange={handleConfirmPasswordChange} />
                 <button onClick={register} >REGISTER</button>
+                <div>
+                    Already have an account?
+                    <button onClick={() => history.push('/login')}>SIGN IN</button>
+                </div>
                 <p>{message}</p>
             </div>
         </div>

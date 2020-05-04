@@ -5,3 +5,19 @@
 .clickable :hover {
   opacity: .5;
 }
+
+input {
+  display: block;
+}
+
+body {
+  background-color: #313131;
+  color: #f1f1f1;
+}
+
+.form {
+  width: 30%;
+  padding: 1em;
+  margin: auto;
+  margin-top: 5em;
+}

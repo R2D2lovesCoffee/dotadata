@@ -34,18 +34,6 @@ export default function Question(props) {
 
     return (
         <div>
-            <p>ceva de genul</p>
-            <h1>titlu</h1>
-            <ol>
-                <li>mere</li>
-                <li>pere</li>
-                <li>prune</li>
-            </ol>
-            <ul>
-                <li>dota</li>
-                <li>dotka</li>
-                <li>vodka</li>
-            </ul>
             <div>{text}</div>
             <Subject type={subjectType} content={subject} />
             <div>

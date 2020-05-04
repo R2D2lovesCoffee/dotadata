@@ -24,7 +24,7 @@ function App() {
           <Register />
         </Route>
         <Route path="/">
-          <Home />
+          <Protected Component={Home} />
         </Route>
       </Switch>
     </Router>
