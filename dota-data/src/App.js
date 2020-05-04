@@ -9,8 +9,11 @@ import Home from './components/views/Home';
 import Login from './components/views/Login';
 import Protected from './components/Protected';
 import Register from './components/views/Register';
+import socket from './socket';
 
 function App() {
+  socket.emit('test', 'asdf');
+  socket.emit('test2', 'asdfe');
   return (
     <Router>
       <Switch>
