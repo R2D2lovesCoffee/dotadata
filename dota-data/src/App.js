@@ -10,6 +10,7 @@ import Login from './components/views/Login';
 import Protected from './components/Protected';
 import Register from './components/views/Register';
 import NavigationBar from './components/Navbar'
+import socket from './socket';
 
 function App() {
   return (

@@ -1,5 +1,7 @@
 const app = require('./app');
 const { PORT } = require('./config');
+const socketio = require('socket.io');
+const SocketManger = require('./socket-manager');
 
 const connection = require('./database/connection');
 
@@ -10,4 +12,10 @@ const connection = require('./database/connection');
 connection.sync().then(() => {
     require('./database/associations')();
 })
-app.listen(5000, console.log(`server started on port ${PORT}`));
+
+const server = app.listen(PORT, console.log(`server started on port ${PORT}`));
+const io = socketio(server);
+io.on('connection', socket => {
+    console.log('connected', socket.id);
+    new SocketManger(socket).start();
+})

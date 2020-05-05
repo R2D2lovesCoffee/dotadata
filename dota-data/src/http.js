@@ -1,11 +1,12 @@
 import axios from 'axios';
 import config from './config';
 
+const serverURL = `${config.serverURL}/application-server/api`
 const http = {};
 ['get', 'post', 'put', 'delete'].forEach(method => {
     http[method] = (url, body) => {
         let params = {};
-        params.url = `${config.host}${url}`;
+        params.url = `${serverURL}${url}`;
         if (method === 'post' || method === 'put') {
             params.body = body;
         }
