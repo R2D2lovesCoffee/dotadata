@@ -1,4 +1,4 @@
-import React, { useState, use, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Subject(props) {
     const [content, setContent] = useState('');
