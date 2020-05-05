@@ -11,7 +11,7 @@ export default function NavigationBar() {
                 <input type="checkbox" id="nav-check" />
                 <div className="nav-header">
                     <div className="nav-title">
-                        DOTA 2 GAME
+                        <Link to="/home">DOTA 2 GAME</Link>
                     </div>
                 </div>
                 <div className="nav-btn">
@@ -25,6 +25,8 @@ export default function NavigationBar() {
                 <div className="nav-links">
                     <Link to="/home">Home</Link>
                     <Link to="/login">Login</Link>
+                    <Link to="">Profile</Link>
+                    <Link to="">Contact</Link>
                 </div>
             </div>
         </header >

@@ -29,6 +29,15 @@ function App() {
         <Route path="/">
           <Protected Component={Home} />
         </Route>
+        <Route path="/profile">
+          {/* 
+          <Protected Component={Home} />
+          <Profile /> 
+         */}
+        </Route>
+        <Route path="/contact">
+          {/* <Contact /> */}
+        </Route>
       </Switch>
     </Router>
   );
