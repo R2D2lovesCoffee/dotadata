@@ -14,7 +14,6 @@ import socket from './socket';
 
 function App() {
   return (
-    // <div>
     <Router>
       <NavigationBar />
       <Switch>
@@ -32,7 +31,6 @@ function App() {
         </Route>
       </Switch>
     </Router>
-    // </div>
   );
 }
 
