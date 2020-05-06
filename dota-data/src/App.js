@@ -9,7 +9,8 @@ import Home from './components/views/Home';
 import Login from './components/views/Login';
 import Protected from './components/Protected';
 import Register from './components/views/Register';
-import NavigationBar from './components/NavigationBar'
+import NavigationBar from './components/NavigationBar';
+import Profile from './components/views/Profile';
 import socket from './socket';
 
 function App() {
@@ -28,6 +29,13 @@ function App() {
         </Route>
         <Route path="/">
           <Protected Component={Home} />
+        </Route>
+        <Route path="/profile">
+          <Protected Component={Profile} />
+          {/*<Profile />*/}
+        </Route>
+        <Route path="/contact">
+          {/* <Contact /> */}
         </Route>
       </Switch>
     </Router>
