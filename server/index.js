@@ -16,6 +16,5 @@ connection.sync().then(() => {
 const server = app.listen(PORT, console.log(`server started on port ${PORT}`));
 const io = socketio(server);
 io.on('connection', socket => {
-    console.log('connected', socket.id);
     new SocketManger(socket).start();
 })
