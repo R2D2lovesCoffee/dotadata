@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import FacebookLogin from 'react-facebook-login';
 import { useHistory } from "react-router-dom";
 import http from '../../http';
 
@@ -31,10 +30,6 @@ function Login() {
             })
     }
 
-    const responseFacebook = (resp) => {
-        console.log(resp);
-    }
-
     return (
         <div className="form">
             <input value={email} onChange={handleEmailChange} placeholder="email" />
@@ -44,11 +39,6 @@ function Login() {
                 Don't have an account?
                 <button onClick={() => history.push('/register')}>SIGN UP</button>
             </div>
-            <FacebookLogin
-                appId="1237835009752812"
-                fields="name,email,picture"
-                // onClick={componentClicked}
-                callback={responseFacebook} />
             <p>{message}</p>
         </div>
     )

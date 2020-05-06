@@ -1,7 +1,7 @@
 const app = require('./app');
-const { PORT } = require('./config');
 const socketio = require('socket.io');
-const SocketManger = require('./socket-manager');
+const { PORT } = require('./config');
+const { fork } = require('child_process');
 
 const connection = require('./database/connection');
 
@@ -13,8 +13,14 @@ connection.sync().then(() => {
     require('./database/associations')();
 })
 
-const server = app.listen(PORT, console.log(`server started on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
+const clients = [];
 const io = socketio(server);
 io.on('connection', socket => {
-    new SocketManger(socket).start();
+    socket.on('test', () => {
+        console.log('test');
+    })
+    socket.on('disconnect', () => {
+        console.log(socket.id + ' disconnected');
+    })
 })

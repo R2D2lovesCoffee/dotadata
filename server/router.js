@@ -1,17 +1,10 @@
 const router = require('express').Router();
 const { fork } = require('child_process');
-const Hero = require('./database/models/Hero');
-const HeroDetail = require('./database/models/HeroDetail');
-const Spell = require('./database/models/Spell');
-const SpellDetail = require('./database/models/SpellDetail');
-const SpellSound = require('./database/models/SpellSound');
-const { parseSpell } = require('./scripts/parse');
-const { randomNumber } = require('./scripts/utils');
-const Question = require('./scripts/questions/Question');
 const User = require('./database/models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('./config');
+const axios = require('axios');
 
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -67,23 +60,23 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.get('/heroes', async (req, res) => {
-    const { name } = req.query;
-    Hero.findOne({
-        where: { name }, include: [
-            { model: HeroDetail, as: 'heroDetails' },
-            {
-                model: Spell, as: 'spells', include: [
-                    { model: SpellSound, as: 'sounds' },
-                    { model: SpellDetail, as: 'spellDetails' }
-                ]
-            },
-        ]
-    }).then(hero => hero.dataValues).then(hero => {
-        hero.spells = hero.spells.map(spell => parseSpell(spell))
-        res.send(hero);
-    }).catch(err => console.log(err));
-})
+// router.get('/heroes', async (req, res) => {
+//     const { name } = req.query;
+//     Hero.findOne({
+//         where: { name }, include: [
+//             { model: HeroDetail, as: 'heroDetails' },
+//             {
+//                 model: Spell, as: 'spells', include: [
+//                     { model: SpellSound, as: 'sounds' },
+//                     { model: SpellDetail, as: 'spellDetails' }
+//                 ]
+//             },
+//         ]
+//     }).then(hero => hero.dataValues).then(hero => {
+//         hero.spells = hero.spells.map(spell => parseSpell(spell))
+//         res.send(hero);
+//     }).catch(err => console.log(err));
+// })
 
 router.get('/random-question', async (req, res) => {
     const random = 1;
