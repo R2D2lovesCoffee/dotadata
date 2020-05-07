@@ -12,7 +12,6 @@ import Register from './components/views/Register';
 import NavigationBar from './components/NavigationBar';
 import Profile from './components/views/Profile';
 import Contact from './components/views/Contact';
-import SignOut from './components/views/SignOut';
 
 function App() {
   return (
@@ -36,9 +35,6 @@ function App() {
         </Route>
         <Route path="/contact">
           <Contact />
-        </Route>
-        <Route path="/login">
-          <SignOut />
         </Route>
       </Switch>
     </Router>

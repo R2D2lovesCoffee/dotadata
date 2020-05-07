@@ -1,10 +1,5 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-import { Link, BrowserRouter, Redirect } from 'react-router-dom';
-import Home from './views/Home';
-import Login from './views/Login';
-import Profile from './views/Profile';
-import SignOut from './views/SignOut';
+import { Link } from 'react-router-dom';
 export default function NavigationBar() {
 
     return (
@@ -29,7 +24,7 @@ export default function NavigationBar() {
                     <Link to="/login">Login</Link>
                     <Link to="/profile">Profile</Link>
                     <Link to="/contact">Contact</Link>
-                    <Link onClick={SignOut} to="/login">Sign out</Link>
+                    <Link onClick={() => localStorage.clear()} to="/login">Sign out</Link>
                 </div>
             </div>
         </header >
