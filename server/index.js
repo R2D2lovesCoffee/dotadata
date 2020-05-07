@@ -16,9 +16,11 @@ connection.sync().then(() => {
 const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
 const clients = [];
 const io = socketio(server);
+
 io.on('connection', socket => {
-    socket.on('test', () => {
-        console.log('test');
+    console.log(socket.id + ' connected');
+    socket.on('test', data => {
+        console.log(data);
     })
     socket.on('disconnect', () => {
         console.log(socket.id + ' disconnected');

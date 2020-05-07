@@ -16,7 +16,6 @@ import SignOut from './components/views/SignOut';
 import socket from './socket';
 
 function App() {
-  socket.emit('test');
   return (
     <Router>
       <NavigationBar />
