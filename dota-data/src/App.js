@@ -14,7 +14,6 @@ import Profile from './components/views/Profile';
 import socket from './socket';
 
 function App() {
-  socket.emit('test');
   return (
     <Router>
       <NavigationBar />

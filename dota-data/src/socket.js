@@ -1,4 +1,3 @@
 import socketIOClient from "socket.io-client";
-import config from './config';
-const socket = process.env.NODE_ENV === 'production' ? socketIOClient(config.serverURL, { path: '/application-server/socket.io', transports: ['polling'], secure: true }) : socketIOClient(config.serverURL);
-export default socket;
+const socket = process.env.NODE_ENV === 'production' ? socketIOClient('wss://www.r2d2lovescoffee.com', { secure: true }) : socketIOClient('http://localhost:5000');
+export default socket
