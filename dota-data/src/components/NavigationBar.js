@@ -28,6 +28,7 @@ export default function NavigationBar() {
                     <Link to="/login">Login</Link>
                     <Link to="/profile">Profile</Link>
                     <Link to="">Contact</Link>
+                    <Link to="/login">Sign out</Link>
                 </div>
             </div>
         </header >
