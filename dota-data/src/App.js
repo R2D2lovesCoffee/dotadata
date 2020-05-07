@@ -11,7 +11,6 @@ import Protected from './components/Protected';
 import Register from './components/views/Register';
 import NavigationBar from './components/NavigationBar';
 import Profile from './components/views/Profile';
-import socket from './socket';
 
 function App() {
   return (

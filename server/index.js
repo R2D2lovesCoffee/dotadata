@@ -1,7 +1,6 @@
 const app = require('./app');
-const socketio = require('socket.io');
+const ServerSocket = require('./server-socket.js');
 const { PORT } = require('./config');
-const { fork } = require('child_process');
 
 const connection = require('./database/connection');
 
@@ -14,15 +13,5 @@ connection.sync().then(() => {
 })
 
 const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
-const clients = [];
-const io = socketio(server);
-
-io.on('connection', socket => {
-    console.log(socket.id + ' connected');
-    socket.on('test', data => {
-        console.log(data);
-    })
-    socket.on('disconnect', () => {
-        console.log(socket.id + ' disconnected');
-    })
-})
+const serverSocket = new ServerSocket(server);
+serverSocket.start();

@@ -10,7 +10,7 @@ const http = {};
         if (method === 'post' || method === 'put') {
             params.body = body;
         }
-        params.options = { headers: config.headers }
+        params.options = { headers: config.getHeaders() }
         return axios[method](...Object.values(params)).then(response => response.data)
             .catch(error => Promise.reject(error.response.data))
     }
