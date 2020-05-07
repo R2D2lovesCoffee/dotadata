@@ -11,6 +11,8 @@ import Protected from './components/Protected';
 import Register from './components/views/Register';
 import NavigationBar from './components/NavigationBar';
 import Profile from './components/views/Profile';
+import Contact from './components/views/Contact';
+import SignOut from './components/views/SignOut';
 import socket from './socket';
 
 function App() {
@@ -35,7 +37,10 @@ function App() {
           <Protected Component={Profile} />
         </Route>
         <Route path="/contact">
-          {/* <Contact /> */}
+          <Contact />
+        </Route>
+        <Route path="/login">
+          <SignOut />
         </Route>
       </Switch>
     </Router>
