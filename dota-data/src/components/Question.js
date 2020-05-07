@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Subject from './Subject';
 import Answer from './Answer';
-import http from '../http';
+import { socket } from '../socket';
 
 export default function Question(props) {
     const [text, setText] = useState('');
@@ -14,15 +14,19 @@ export default function Question(props) {
     const [start, setStart] = useState(false);
 
     const getQuestion = () => {
-        http.get('/random-question')
-            .then(data => {
-                setCorrectAnswer(data.correctAnswer);
-                setText(data.text);
-                setAnswers(data.answers);
-                setSubject(data.subject);
-                setSubjectType(data.meta.subjectType);
-                setAnswersType(data.meta.answersType);
-            })
+        socket.emit('startSoloGame');
+        socket.on('question', question => {
+            console.log(question);
+        })
+        // http.get('/random-question')
+        //     .then(data => {
+        //         setCorrectAnswer(data.correctAnswer);
+        //         setText(data.text);
+        //         setAnswers(data.answers);
+        //         setSubject(data.subject);
+        //         setSubjectType(data.meta.subjectType);
+        //         setAnswersType(data.meta.answersType);
+        //     })
     }
 
     const handleAnswerClick = (index) => {

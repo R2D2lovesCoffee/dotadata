@@ -1,5 +1,5 @@
 const app = require('./app');
-const ServerSocket = require('./server-socket.js');
+const ServerSocket = require('./io/server-socket.js');
 const { PORT } = require('./config');
 
 const connection = require('./database/connection');
@@ -13,5 +13,4 @@ connection.sync().then(() => {
 })
 
 const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
-const serverSocket = new ServerSocket(server);
-serverSocket.start();
+new ServerSocket(server).start();
