@@ -4,6 +4,7 @@ import { Link, BrowserRouter, Redirect } from 'react-router-dom';
 import Home from './views/Home';
 import Login from './views/Login';
 import Profile from './views/Profile';
+import SignOut from './views/SignOut';
 export default function NavigationBar() {
 
     return (
@@ -16,7 +17,7 @@ export default function NavigationBar() {
                     </div>
                 </div>
                 <div className="nav-btn">
-                    <label for="nav-check">
+                    <label htmlFor="nav-check">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -28,7 +29,7 @@ export default function NavigationBar() {
                     <Link to="/login">Login</Link>
                     <Link to="/profile">Profile</Link>
                     <Link to="/contact">Contact</Link>
-                    <Link to="/login">Sign out</Link>
+                    <Link onClick={SignOut} to="/login">Sign out</Link>
                 </div>
             </div>
         </header >
