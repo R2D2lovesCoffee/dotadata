@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import Question from '../Question';
-import { socket, connect } from '../../socket';
+import { connect } from '../../socket';
 function Home() {
     useEffect(() => {
+        console.log('home');
         connect();
-    })
+    }, [])
     return (
         <div>
             <Question />

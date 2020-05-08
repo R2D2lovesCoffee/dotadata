@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Subject from './Subject';
 import Answer from './Answer';
 import { socket } from '../socket';
@@ -9,31 +9,12 @@ export default function Question(props) {
     const [subject, setSubject] = useState('');
     const [subjectType, setSubjectType] = useState('');
     const [answersType, setAnswersType] = useState('');
-    const [correctAnswer, setCorrectAnswer] = useState(-1);
     const [score, setScore] = useState(0);
     const [start, setStart] = useState(false);
-
-    const getQuestion = () => {
-        socket.emit('startSoloGame');
-        socket.on('question', question => {
-            console.log(question);
-        })
-        // http.get('/random-question')
-        //     .then(data => {
-        //         setCorrectAnswer(data.correctAnswer);
-        //         setText(data.text);
-        //         setAnswers(data.answers);
-        //         setSubject(data.subject);
-        //         setSubjectType(data.meta.subjectType);
-        //         setAnswersType(data.meta.answersType);
-        //     })
-    }
+    const [time, setTime] = useState(0);
 
     const handleAnswerClick = (index) => {
-        if (index === correctAnswer) {
-            setScore(score + 1);
-        }
-        getQuestion();
+        socket.emit('answer', index);
     }
 
     return (
@@ -46,10 +27,26 @@ export default function Question(props) {
             <div>
                 <button hidden={start} onClick={() => {
                     setStart(true);
-                    getQuestion();
+                    socket.emit('startSoloGame');
+                    socket.on('testFinished', () => {
+                        console.log('finished');
+                    })
+                    socket.on('time', time => {
+                        setTime(time);
+                    })
+                    socket.on('question', ({ question, time, score }) => {
+                        setTime(time);
+                        setScore(score);
+                        setText(question.text);
+                        setAnswers(question.answers);
+                        setSubject(question.subject);
+                        setSubjectType(question.meta.subjectType);
+                        setAnswersType(question.meta.answersType);
+                    })
                 }}>START</button>
             </div>
             <p>score: {score}</p>
+            <p>time: {time}</p>
         </div>
     )
 }

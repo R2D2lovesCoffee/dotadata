@@ -24,7 +24,6 @@ Spell.findAll({
     .then(spells => {
         question.setAnswers(spells.map(spell => spell.img_src));
         const correct = randomNumber(0, 3);
-        question.setCorrectAnswer(correct);
         question.setSubject(spells[correct].sounds[0].src);
-        process.send(question);
+        process.send({ question, correct });
     })
