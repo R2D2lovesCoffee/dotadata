@@ -19,14 +19,19 @@ module.exports = class ServerSocket {
             client.correctAnswer = correct;
             client.time = new Date();
             client.socket.emit('question', { question, time: remainingTime, score: client.score });
+            client.currentQuestion++;
             client.interval = setInterval(() => {
                 client.socket.emit('time', --remainingTime);
                 if (remainingTime === 0) {
                     clearInterval(client.interval);
-                    client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
-                    client.currentQuestion++;
-                    if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
-                        this.sendQuestion(client);
+                    if (client.currentlyPlaying) {
+                        client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
+                        if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
+                            this.sendQuestion(client);
+                        } else {
+                            client.reset();
+                            client.socket.emit('testFinished');
+                        }
                     }
                 }
             }, 1000);
@@ -39,17 +44,20 @@ module.exports = class ServerSocket {
     }
 
     handleAnswer(client, index) {
-        client.currentQuestion++;
-        clearInterval(client.interval);
-        client.time = new Date() - client.time;
-        if (index === client.correctAnswer) {
-            client.score += this.calculateScore(client.time);
-        }
-        if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
-            this.sendQuestion(client);
-        } else {
-            client.currentlyPlaying = null;
-            client.socket.emit('testFinished');
+        console.log(client.currentlyPlaying);
+        if (client.currentlyPlaying) {
+            if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
+                // client.currentQuestion++;
+                clearInterval(client.interval);
+                client.time = new Date() - client.time;
+                if (index === client.correctAnswer) {
+                    client.score += this.calculateScore(client.time);
+                }
+                this.sendQuestion(client);
+            } else {
+                client.reset();
+                client.socket.emit('testFinished');
+            }
         }
     }
 

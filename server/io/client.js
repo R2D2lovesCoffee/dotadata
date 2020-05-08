@@ -23,4 +23,12 @@ module.exports = class Client {
         this.score = 0;
         this.currentQuestion = 1;
     }
+
+    reset() {
+        this.score = null;
+        this.currentQuestion = null;
+        this.correctAnswer = null;
+        this.currentlyPlaying = null;
+        this.interval = null;
+    }
 }
