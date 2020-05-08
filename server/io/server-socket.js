@@ -13,7 +13,7 @@ module.exports = class ServerSocket {
     sendQuestion(client) {
         const random = 1;
         const child = fork(`./scripts/questions/type${random}`);
-        let remainingTime = 5;
+        let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
         child.on('message', ({ question, correct }) => {
             child.kill();
             client.correctAnswer = correct;
@@ -23,10 +23,9 @@ module.exports = class ServerSocket {
                 client.socket.emit('time', --remainingTime);
                 if (remainingTime === 0) {
                     clearInterval(client.interval);
-                    client.time = new Date() - client.time;
-                    console.log('time in interval:', client.time);
+                    client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
                     client.currentQuestion++;
-                    if (client.currentQuestion <= 5) {
+                    if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
                         this.sendQuestion(client);
                     }
                 }
@@ -39,6 +38,25 @@ module.exports = class ServerSocket {
         });
     }
 
+    handleAnswer(client, index) {
+        client.currentQuestion++;
+        clearInterval(client.interval);
+        client.time = new Date() - client.time;
+        if (index === client.correctAnswer) {
+            client.score += this.calculateScore(client.time);
+        }
+        if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
+            this.sendQuestion(client);
+        } else {
+            client.currentlyPlaying = null;
+            client.socket.emit('testFinished');
+        }
+    }
+
+    calculateScore(time) {
+        return 100;
+    }
+
     start() {
         this.io.use(socketAuth).on('connection', socket => {
             console.log('client connected! ' + socket.id);
@@ -47,28 +65,14 @@ module.exports = class ServerSocket {
             socket.on('startSoloGame', () => {
                 const client = this.clients.findClient(socket.id);
                 if (client.currentlyPlaying === null) {
-                    client.score = 0;
-                    client.correctAnswer = -1;
-                    client.currentlyPlaying = 'soloGame';
-                    client.currentQuestion = 1;
+                    client.init('soloGame');
                     this.sendQuestion(client);
                 }
             })
 
             socket.on('answer', index => {
                 const client = this.clients.findClient(socket.id);
-                client.currentQuestion++;
-                clearInterval(client.interval);
-                client.time = new Date() - client.time;
-                console.log('time:', client.time);
-                if (index === client.correctAnswer) {
-                    client.score += 100;
-                }
-                if (client.currentQuestion <= 5) {
-                    this.sendQuestion(client);
-                } else {
-                    socket.emit('testFinished');
-                }
+                this.handleAnswer(client, index);
             })
 
             socket.on('disconnect', () => {
