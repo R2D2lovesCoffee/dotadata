@@ -1,6 +1,5 @@
-module.exports = function (type) {
+module.exports = function () {
     this.text = null;
-    this.type = type;
     this.answers = null;
     this.subject = null;
     this.meta = null;

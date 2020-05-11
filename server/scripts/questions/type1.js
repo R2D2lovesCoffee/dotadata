@@ -5,7 +5,7 @@ const { randomNumber } = require('../utils');
 require('../../database/associations')();
 
 const Question = require('./Question');
-const question = new Question(1);
+const question = new Question();
 question.meta = {
     subjectType: 'audio',
     answersType: 'img'

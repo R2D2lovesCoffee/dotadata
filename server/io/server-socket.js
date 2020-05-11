@@ -2,12 +2,20 @@ const socketio = require('socket.io');
 const { socketAuth } = require('../auth');
 const Client = require('./client');
 const { fork } = require('child_process');
+const fs = require('fs');
 
 module.exports = class ServerSocket {
     constructor(server) {
         this.io = socketio(server);
         this.clients = [];
-        this.clients.findClient = socketID => this.clients.find(client => client.socketID === socketID)
+        this.clients.findClient = socketID => this.clients.find(client => client.socketID === socketID);
+        fs.readdir('./scripts/questions', (err, files) => {
+            if (err) {
+                console.log(err);
+            } else {
+                this.noTypes = files.length - 1; // substract 1 because Question.js is in that folder too
+            }
+        })
     }
 
     sendQuestion(client) {
