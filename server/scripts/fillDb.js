@@ -4,6 +4,12 @@ const HeroDetail = require('../database/models/HeroDetail');
 const SpellSound = require('../database/models/SpellSound');
 const SpellDetail = require('../database/models/SpellDetail');
 
+const Item = require('../database/models/Item');
+const ItemAbility = require('../database/models/ItemAbility');
+const ItemBonus = require('../database/models/ItemBonus');
+const ItemComponent = require('../database/models/ItemComponent');
+const { getAllItems, getItem } = require('./gather_info/item');
+
 const heroManager = require('../scripts/gather_info/hero');
 const spellManager = require('../scripts/gather_info/spell');
 
@@ -147,18 +153,70 @@ const fillSpellsData = async (name, hero_id) => {
                 })
             }
         }
-        for(type of ['mana', 'cooldown']) {
-                await SpellDetail.create({
-                    spell_id: inserted.id,
-                    type,
-                    default: spell[type] && spell[type].default ? spell[type].default.join('-') : null,
-                    aghs: spell[type] && spell[type].aghs ? spell[type].aghs.join('-') : null,
-                    talents: spell[type] && spell[type].talents ? spell[type].talents.join('-') : null,
-                    both: spell[type] && spell[type].both ? spell[type].both.join('-') : null
-                })
+        for (type of ['mana', 'cooldown']) {
+            await SpellDetail.create({
+                spell_id: inserted.id,
+                type,
+                default: spell[type] && spell[type].default ? spell[type].default.join('-') : null,
+                aghs: spell[type] && spell[type].aghs ? spell[type].aghs.join('-') : null,
+                talents: spell[type] && spell[type].talents ? spell[type].talents.join('-') : null,
+                both: spell[type] && spell[type].both ? spell[type].both.join('-') : null
+            })
         }
     }
     console.log('finished inserting spells');
 }
 
-module.exports = fillDB;
+const fillItems = async () => {
+    await getAllItems().then(async items => {
+        for (item of items) {
+            item = await getItem(item.name);
+            try {
+                let createdId = (await Item.create({ name: item.name, img: item.img, lore: item.lore })).dataValues.id;
+                // created = created.dataValues;
+                if (item.bonus) {
+                    for (bonus of item.bonus.split('\n')) {
+                        await ItemBonus.create({ description: bonus, item_id: createdId });
+                    }
+                }
+                for (ability of item.abilities) {
+                    await ItemAbility.create({ name: ability.name, item_id: createdId, description: ability.description });
+                }
+                console.log('done ' + item.name);
+            } catch (err) {
+                console.log('err at ' + item.name);
+            }
+        }
+    })
+}
+
+const fillItemComponents = async () => {
+    await getAllItems().then(async items => {
+        for (item of items) {
+            item = await getItem(item.name);
+            if (!['Observer Ward', 'Sentry Ward', 'Smoke of Deceit', 'Clarity'].includes(item.name))
+                try {
+                    if (item.usedIn) {
+                        for (usedIn of item.usedIn) {
+                            usedIn = usedIn.replace(/%27/g, '\'');
+                            if (!['Necronomicon 2', 'Dagon 2', 'Aghanim\'s Blessing', 'Trident', 'Boots of Travel 2'].includes(usedIn))
+                                try {
+                                    const item_id = (await Item.findOne({ where: { name: item.name } })).dataValues.id;
+                                    const component_of_id = (await Item.findOne({ where: { name: usedIn } })).dataValues.id;
+                                    await ItemComponent.create({ item_id, component_of_id })
+                                }
+                                catch (err) {
+                                    console.log(usedIn);
+                                }
+                        }
+                        console.log('finished writing ' + item.name + ' used in..');
+                    }
+                } catch (err) {
+                    console.log(err);
+                    console.log('error when writing that ' + item.name + ' is component of some item');
+                }
+        }
+    })
+}
+
+module.exports = { fillDB, fillItems, fillItemComponents };

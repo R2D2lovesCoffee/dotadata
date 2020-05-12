@@ -4,6 +4,10 @@ const Spell = require('./models/Spell');
 const HeroDetail = require('./models/HeroDetail');
 const SpellSound = require('./models/SpellSound');
 const SpellDetail = require('./models/SpellDetail');
+const Item = require('./models/Item');
+const ItemAbility = require('./models/ItemAbility');
+const ItemBonus = require('./models/ItemBonus');
+const ItemComponent = require('./models/ItemComponent');
 
 module.exports = () => {
     Hero.hasOne(HeroDetail, { as: 'heroDetails', foreignKey: 'hero_id' });
@@ -14,4 +18,8 @@ module.exports = () => {
     SpellSound.belongsTo(Spell, { as: 'spell', foreignKey: 'spell_id' });
     Spell.hasMany(SpellDetail, { as: 'spellDetails', foreignKey: 'spell_id' });
     SpellDetail.belongsTo(Spell, { as: 'spell', foreignKey: 'spell_id' });
+    Item.hasMany(ItemAbility, { as: 'abilities', foreignKey: 'item_id' });
+    ItemAbility.belongsTo(Item, { as: 'item', foreignKey: 'item_id' });
+    Item.hasMany(ItemBonus, { as: 'bonuses', foreignKey: 'item_id' });
+    ItemBonus.belongsTo(Item, { as: 'item', foreignKey: 'item_id' });
 }
