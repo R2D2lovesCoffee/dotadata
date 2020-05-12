@@ -16,9 +16,6 @@ export default function Answer(props) {
                 ref.load();
                 ref.play();
             }
-            if (type === 'img') {
-
-            }
         }
 
     }, [props.content]);
