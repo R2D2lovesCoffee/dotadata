@@ -20,7 +20,11 @@ exported.getHeroSpells = heroName => {
 }
 
 const getSpellInfo2 = root => {
-    const img = root.childNodes[0].childNodes.find(elem => elem.tagName === 'a').childNodes.find(elem => elem.tagName === 'img').getAttribute('src');
+    const a = root.childNodes[0].childNodes.find(elem => elem.tagName === 'a');
+    let img = null;
+    if (a) {
+        img = a.childNodes.find(elem => elem.tagName === 'img').getAttribute('src');
+    }
     const divsRight = root.childNodes[2].childNodes.filter(elem => elem.tagName === 'div');
     const description = divsRight[1].rawText;
     const generalsNodes = divsRight[0].childNodes.filter(elem => elem.tagName === 'div');

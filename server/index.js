@@ -4,12 +4,15 @@ const { PORT } = require('./config');
 
 const connection = require('./database/connection');
 
-// const fillDB = require('./scripts/fillDb');
+const { fillDB, fillItems, fillItemComponents } = require('./scripts/fillDb');
 // connection.sync({ force: true }).then(() => {
 //     fillDB();
 // })
-connection.sync().then(() => {
+
+connection.sync().then(async () => {
     require('./database/associations')();
+    // await fillItems();
+    // await fillItemComponents();
 })
 
 const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
