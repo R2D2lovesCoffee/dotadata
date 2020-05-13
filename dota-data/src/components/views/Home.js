@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import Question from '../Question';
 import { connect } from '../../socket';
 function Home() {
-    useEffect(() => {
-        console.log('home');
-        connect();
-    }, [])
+    // useEffect(() => {
+    //     connect();
+    // }, [])
     return (
         <div>
-            <Question />
+            Home Page
         </div>
     )
 }
