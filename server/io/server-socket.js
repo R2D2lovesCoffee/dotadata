@@ -19,7 +19,8 @@ module.exports = class ServerSocket {
     }
 
     sendQuestion(client) {
-        const random = Math.floor(Math.random() * this.noTypes) + 1;
+        //const random = Math.floor(Math.random() * this.noTypes) + 1;
+        const random = Math.floor(Math.random() * 2) + 1;
         const child = fork(`./scripts/questions/type${random}`);
         let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
         child.on('message', ({ question, correct }) => {

@@ -12,7 +12,7 @@ const { fillDB, fillItems, fillItemComponents } = require('./scripts/fillDb');
 connection.sync().then(async () => {
     require('./database/associations')();
     // await fillItems();
-    // await fillItemComponents();
+    //await fillItemComponents();
 })
 
 const server = app.listen(PORT, () => console.log(`listening on port ${PORT}...`));

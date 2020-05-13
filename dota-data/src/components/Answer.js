@@ -19,7 +19,7 @@ export default function Answer(props) {
         }
 
     }, [props.content]);
-
+    //console.log(type);
     switch (type) {
         case 'audio':
             return (

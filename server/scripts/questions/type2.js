@@ -9,21 +9,25 @@ const question = new Question();
 
 question.meta = {
     subjectType: 'img',
-    answerType: 'text'
+    answersType: 'text'
 }
 
-question.setText("who is this hero?");
+question.setText("Who is this hero?");
 
 Hero.findAll({
-    attributes: ['img_src'],
+    attributes: ['name', 'img_medium_src'],
     order: [
         db.fn('RAND')
     ],
     limit: 4,
-    include: [
-        { model: HeroDetails, as: heroes, attributes: ['src'], required: true }
-    ]
-})
+}).then(heroes => heroes.map(hero => hero.dataValues))
+    .then(heroes => {
+        question.setAnswers(heroes.map(hero => hero.name));
+        const correctIndex = randomNumber(0, 3);
+        question.setSubject(heroes[correctIndex].img_medium_src);
+        console.log(question);
+        process.send({ question, correctIndex });
+    })
 
 
 // process.send({ message: 'hello from type2' });
