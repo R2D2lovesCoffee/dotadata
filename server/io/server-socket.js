@@ -25,6 +25,7 @@ module.exports = class ServerSocket {
         let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
         child.on('message', ({ question, correct }) => {
             child.kill();
+            client.question = question;
             client.correctAnswer = correct;
             client.time = new Date();
             client.socket.emit('question', { question, time: remainingTime, score: client.score });
@@ -32,6 +33,7 @@ module.exports = class ServerSocket {
             client.interval = setInterval(() => {
                 client.socket.emit('time', --remainingTime);
                 if (remainingTime === 0) {
+                    client.addToReport(null);
                     clearInterval(client.interval);
                     if (client.currentlyPlaying) {
                         client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
@@ -39,7 +41,7 @@ module.exports = class ServerSocket {
                             this.sendQuestion(client);
                         } else {
                             client.reset();
-                            client.socket.emit('testFinished');
+                            client.socket.emit('testFinished', client.report);
                         }
                     }
                 }
@@ -53,19 +55,19 @@ module.exports = class ServerSocket {
     }
 
     handleAnswer(client, index) {
-        console.log(client.currentlyPlaying);
+        clearInterval(client.interval);
         if (client.currentlyPlaying) {
+            client.time = new Date() - client.time;
+            if (index === client.correctAnswer) {
+                client.score += this.calculateScore(client.time);
+            }
+            client.addToReport(index);
             if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
-                // client.currentQuestion++;
-                clearInterval(client.interval);
-                client.time = new Date() - client.time;
-                if (index === client.correctAnswer) {
-                    client.score += this.calculateScore(client.time);
-                }
                 this.sendQuestion(client);
             } else {
                 client.reset();
-                client.socket.emit('testFinished');
+                console.log(client.report);
+                client.socket.emit('testFinished', client.report);
             }
         }
     }
