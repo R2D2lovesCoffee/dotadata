@@ -5,20 +5,18 @@ export default function Subject(props) {
     const [type, setType] = useState('');
     const audio = useRef(null);
     useEffect(() => {
-        if (props.content && props.type) {
-            setContent(props.content);
-            setType(props.type);
-        }
-    }, [props.content, props.type]);
+        setContent(props.content);
+    }, [props.content]);
     useEffect(() => {
-        if (content) {
-            if (type === 'audio') {
-                audio.current.pause();
-                audio.current.load();
-                audio.current.play();
-            }
+        setType(props.type);
+    }, [props.type])
+    useEffect(() => {
+        if (type === 'audio' && content) {
+            audio.current.pause();
+            audio.current.load();
+            audio.current.play();
         }
-    }, [content])
+    }, [type])
     switch (type) {
         case 'audio':
             return (
