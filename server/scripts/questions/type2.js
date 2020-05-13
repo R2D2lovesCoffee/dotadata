@@ -25,7 +25,6 @@ Hero.findAll({
         question.setAnswers(heroes.map(hero => hero.name));
         const correctIndex = randomNumber(0, 3);
         question.setSubject(heroes[correctIndex].img_medium_src);
-        console.log(question);
         process.send({ question, correctIndex });
     })
 
