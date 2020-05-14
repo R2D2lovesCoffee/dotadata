@@ -1,6 +1,15 @@
 .clickable {
   cursor: pointer;
+  user-select: none;
 }
+
+a {
+  text-decoration: none;
+}
+a:visited { text-decoration: none; color:#f1f1f1; }
+a:hover { text-decoration: none; color:blue; }
+a:focus { text-decoration: none; color:#f1f1f1; }
+a:hover, a:active { text-decoration: none; color:black }
 
 .clickable :hover {
   opacity: .5;
@@ -119,4 +128,15 @@ body {
     height: calc(100vh - 50px);
     overflow-y: auto;
   }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 0.4em;
+  user-select: none;
+}
+
+.card:hover {
+  box-shadow: 0 1em 2em 0 rgba(0,0,0,0.4);
 }

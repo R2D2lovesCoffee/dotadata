@@ -9,14 +9,21 @@ export default function Subject(props) {
     }, [props.content]);
     useEffect(() => {
         setType(props.type);
-    }, [props.type])
+    }, [props.type]);
     useEffect(() => {
         if (type === 'audio' && content) {
             audio.current.pause();
             audio.current.load();
             audio.current.play();
         }
-    }, [type])
+    }, [content]);
+    useEffect(() => {
+        if (type === 'audio' && content) {
+            audio.current.pause();
+            audio.current.load();
+            audio.current.play();
+        }
+    }, [type]);
     switch (type) {
         case 'audio':
             return (

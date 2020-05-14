@@ -1,0 +1,28 @@
+
+.card img {
+    height: 70%;
+    width: 100%;
+}
+
+#component-home {
+    width: 50%;
+    margin: auto;
+    margin-top: 3em;
+    column-gap: 2em;
+  }
+  
+.card-play {
+    width: 50%;
+    float: left;
+    text-align: center;
+    background-color: darkslategray;
+    height: 20em;
+}
+
+.card p:hover{
+    opacity: 50%;
+}
+
+.card-play p {
+    font-size: 2em;
+}

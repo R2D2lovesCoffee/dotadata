@@ -12,7 +12,7 @@ question.meta = {
     answersType: 'text'
 }
 
-question.setText('Which hero has the most strength at level 1.');
+question.setText('Which hero has the most strength at level 1?');
 
 Hero.findAll({
     attributes: [[Sequelize.literal('DISTINCT str'), 'str'], 'name'],
