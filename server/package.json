@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js host=http://localhost:5000",
+    "prod": "nodemon index.js host=https://r2d2lovescoffee.com"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.1.0",
     "node-html-parser": "^1.2.14",
+    "nodemailer": "^6.4.6",
     "sequelize": "^5.21.7",
     "socket.io": "^2.3.0"
   }
