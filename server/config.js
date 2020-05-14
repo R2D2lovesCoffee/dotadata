@@ -22,4 +22,6 @@ if (!allKeysSet) {
     console.log('The .env file requires specific keys. You can find them in example.env file.');
     process.exit();
 }
+
+config.HOST = process.argv[2].split('=')[1];
 module.exports = config;
