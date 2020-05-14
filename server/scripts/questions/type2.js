@@ -1,6 +1,5 @@
 const Question = require('./Question');
 const Hero = require('../../database/models/Hero');
-//const HeroDetails = require('../../database/models/HeroDetail');
 const db = require('../../database/connection');
 const { randomNumber } = require('../utils');
 require('../../database/associations')();

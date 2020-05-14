@@ -8,7 +8,7 @@ require('../../database/associations')();
 const question = new Question();
 
 question.meta = {
-    subjectType: null,
+    subjectType: 'none',
     answersType: 'text'
 }
 
@@ -24,7 +24,6 @@ Hero.findAll({
     .then(heroes => {
         question.setAnswers(heroes.map(hero => hero.name));
         question.setSubject(null);
-        console.log(question);
         const arrayStr = heroes.map(hero => hero.str);
         const correct = arrayStr.indexOf(Math.max(...arrayStr));
         process.send({ question, correct });

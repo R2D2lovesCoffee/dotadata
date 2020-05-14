@@ -19,7 +19,7 @@ export default function Answer(props) {
         }
 
     }, [props.content]);
-    //console.log(type);
+
     switch (type) {
         case 'audio':
             return (
@@ -38,11 +38,6 @@ export default function Answer(props) {
             return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)} >
                 {content}
             </div>)
-        case null:
-            return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)}>
-                {content}
-            </div>
-            )
         default:
             return (
                 <div>subject type not recognized</div>

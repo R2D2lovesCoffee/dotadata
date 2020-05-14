@@ -33,8 +33,10 @@ export default function Subject(props) {
             </div>)
         case 'text':
             return (<div>
-                test
+                {content}
             </div>)
+        case 'none':
+            return (<div></div>)
         default:
             return (
                 <div>subject type not recognized</div>
