@@ -3,7 +3,8 @@ const config = {};
 
 let lines = [];
 try {
-    lines = fs.readFileSync('./.env', 'utf8').replace(/\r/g, '').split('\n');
+    //lines = fs.readFileSync('D:/Codeala/Dota_Project/dotadata/server/.env', 'utf8').replace(/\r/g, '').split('\n');
+    lines = fs.readFileSync(require('path').join(__dirname, './.env'), 'utf8').replace(/\r/g, '').split('\n');
 } catch (err) {
     console.log('The .env file doesn\'t exist. Please create the file according to example.env file.');
     console.log(err);
@@ -22,6 +23,8 @@ if (!allKeysSet) {
     console.log('The .env file requires specific keys. You can find them in example.env file.');
     process.exit();
 }
-
-config.HOST = process.argv[2].split('=')[1];
+const hostIndex = process.argv.findIndex(elem => elem.split('=')[0] === 'host');
+if (hostIndex >= 0) {
+    config.HOST = process.argv[hostIndex].split('=')[1];
+}
 module.exports = config;
