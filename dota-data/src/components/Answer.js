@@ -35,8 +35,8 @@ export default function Answer(props) {
                 <img src={content} />
             </div>)
         case 'text':
-            return (<div>
-                test
+            return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)} >
+                {content}
             </div>)
         default:
             return (
