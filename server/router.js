@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const { SECRET, HOST } = require('./config');
 const nodemailer = require('nodemailer');
 
-console.log(HOST);
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
