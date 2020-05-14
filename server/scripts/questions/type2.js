@@ -27,6 +27,3 @@ Hero.findAll({
         question.setSubject(heroes[correct].img_medium_src);
         process.send({ question, correct });
     })
-
-
-// process.send({ message: 'hello from type2' });
