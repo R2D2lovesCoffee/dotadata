@@ -23,9 +23,9 @@ Hero.findAll({
 }).then(heroes => heroes.map(hero => hero.dataValues))
     .then(heroes => {
         question.setAnswers(heroes.map(hero => hero.name));
-        const correctIndex = randomNumber(0, 3);
-        question.setSubject(heroes[correctIndex].img_medium_src);
-        process.send({ question, correctIndex });
+        const correct = randomNumber(0, 3);
+        question.setSubject(heroes[correct].img_medium_src);
+        process.send({ question, correct });
     })
 
 
