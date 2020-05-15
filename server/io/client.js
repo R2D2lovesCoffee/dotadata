@@ -17,8 +17,8 @@ module.exports = class Client {
     }
     static config = {
         soloGame: {
-            noQuestions: 5,
-            timePerQuestion: 5
+            noQuestions: 10,
+            timePerQuestion: 10
         },
         rankedGame: {
 

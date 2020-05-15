@@ -19,8 +19,12 @@ module.exports = class ServerSocket {
     }
 
     sendQuestion(client) {
+<<<<<<< HEAD
         //const random = Math.floor(Math.random() * this.noTypes) + 1;
         const random = Math.floor(Math.random() * 4) + 1;
+=======
+        const random = Math.floor(Math.random() * this.noTypes) + 1;
+>>>>>>> 89b757e2305e70a606762f3a2407cbcd6787aa63
         const child = fork(`./scripts/questions/type${random}`);
         let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
         child.on('message', ({ question, correct }) => {
@@ -66,7 +70,6 @@ module.exports = class ServerSocket {
                 this.sendQuestion(client);
             } else {
                 client.reset();
-                console.log(client.report);
                 client.socket.emit('testFinished', client.report);
             }
         }

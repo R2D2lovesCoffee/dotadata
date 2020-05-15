@@ -21,7 +21,6 @@ export default function NavigationBar() {
 
                 <div className="nav-links">
                     <Link to="/home">Home</Link>
-                    <Link to="/login">Login</Link>
                     <Link to="/profile">Profile</Link>
                     <Link to="/contact">Contact</Link>
                     <Link onClick={() => localStorage.clear()} to="/login">Sign out</Link>

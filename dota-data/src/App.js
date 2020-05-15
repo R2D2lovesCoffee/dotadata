@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
 import Home from './components/views/Home';
 import Login from './components/views/Login';
@@ -39,6 +40,10 @@ function App() {
         </Route>
         <Route path="/solo-game">
           <SoloGame />
+        </Route>
+        <Route path="/ranked-game">
+          <div>Workin on it</div>
+          <Link to="/home">Take me back</Link>
         </Route>
       </Switch>
     </Router>
