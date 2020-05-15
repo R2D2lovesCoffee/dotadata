@@ -6,24 +6,16 @@ const Sequelize = require('sequelize');
 require('../../database/associations')();
 
 const question = new Question();
-const attr = ['str', 'agi', 'int'][Math.floor(Math.random() * 2)];
-
-let obj = {
-    str: 'strength',
-    agi: 'agility',
-    int: 'inteligence'
-}
-
 
 question.meta = {
-    subjectType: 'none',
+    subjectType: 'audio',
     answersType: 'text'
 }
 
-question.setText(`Which hero has the most ${obj[attr]} at level 1 ? `);
+question.setText('Which hero is presented by the audio? ');
 
 Hero.findAll({
-    attributes: [[Sequelize.literal(`DISTINCT ${attr}`), `${attr}`], 'name'],
+    attributes: ['audio_bio_src', 'name'],
     order: [
         db.fn('RAND')
     ],
@@ -31,8 +23,7 @@ Hero.findAll({
 }).then(heroes => heroes.map(hero => hero.dataValues))
     .then(heroes => {
         question.setAnswers(heroes.map(hero => hero.name));
-        question.setSubject(null);
-        const arrayStr = heroes.map(hero => hero[attr]);
-        const correct = arrayStr.indexOf(Math.max(...arrayStr));
+        const correct = randomNumber(0, 3);
+        question.setSubject(heroes[correct].audio_bio_src);
         process.send({ question, correct });
     })
