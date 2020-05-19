@@ -10,5 +10,7 @@ module.exports = connection.define('user', {
     email: Sequelize.STRING,
     password_hash: Sequelize.STRING,
     verification_token: Sequelize.STRING,
+    solo_rating: Sequelize.INTEGER,
+    mp_rating: Sequelize.INTEGER,
     active: Sequelize.BOOLEAN
 }, { timestamps: false, tableName: 'users' });
