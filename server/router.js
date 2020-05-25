@@ -24,7 +24,7 @@ router.post('/login', (req, res) => {
                             .then(result => {
                                 if (result) {
                                     const token = jwt.sign({ user_id: user.id }, SECRET);
-                                    res.send({ access_token: token });
+                                    res.send({ access_token: token, user_id: user.id });
                                 } else {
                                     res.status(400).send({ message: 'Email or password is incorrect!' });
                                 }

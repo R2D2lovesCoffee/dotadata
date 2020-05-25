@@ -20,6 +20,7 @@ function Login() {
             .then(resp => {
                 if (resp.access_token) {
                     localStorage.setItem('access_token', resp.access_token);
+                    localStorage.setItem('user_id', resp.user_id);
                     history.push('/home');
                 }
             }).catch(error => {
