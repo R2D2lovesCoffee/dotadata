@@ -105,5 +105,14 @@ router.post('/profile', async (req, res) => {
     }
 })
 
+router.get('/profile', async (req, res) => {
+    const { email } = req.query;
+    try {
+        res.send(email);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send();
+    }
+})
 
 module.exports = router;
