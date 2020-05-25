@@ -93,4 +93,17 @@ router.get('/verification-token', async (req, res) => {
     res.redirect(`${HOST}/login`);
 })
 
+router.post('/profile', async (req, res) => {
+    const { nickname } = req.body;
+    //const {image} = req.body;
+
+    try {
+        res.send();
+    } catch (error) {
+        console.log(error);
+        res.status(500).send();
+    }
+})
+
+
 module.exports = router;

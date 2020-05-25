@@ -49,6 +49,7 @@ export default function SoloGame() {
                     subject={subject}
                     answers={answers}
                     text={text} />
+                <br />
                 <div>score: <span>{score}</span></div>
                 <div>time: <span>{time}</span></div>
             </div>

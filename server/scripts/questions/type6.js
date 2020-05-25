@@ -24,9 +24,6 @@ Hero.findAll({
     .then(heroes => {
         const heroRange = ['melee', 'ranged'];
         question.setAnswers(heroRange);
-        //console.log(heroes.map(hero => hero.range))
-        //const correct = heroRange.indexOf('melee') === heroes.map(hero => hero.range).indexOf('melee') ? 0 : 1;
-        //var correct = heroRange.includes('melee') === heroes.map(hero => hero.range)[0].includes('melee') ? 0 : 1;
         if (heroRange !== heroes.map(hero => hero.range)) {
             heroes.map(hero => hero.range).splice(0, heroes.map(hero => hero.range).length, ...heroRange);
             //var correct = heroRange.indexOf('melee') === heroes.map(hero => hero.range).indexOf('melee') ? 0 : 1;
@@ -38,8 +35,6 @@ Hero.findAll({
                 var correct = 1;
             }
         }
-        console.log(correct);
         question.setSubject(heroes[correct].img_medium_src);
-        console.log(question);
         process.send({ question, correct });
     })
