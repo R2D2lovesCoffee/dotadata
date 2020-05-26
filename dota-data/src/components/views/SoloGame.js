@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import Question from '../Question';
 import { socket, connect } from '../../socket';
+import { useHistory } from "react-router-dom";
+import ReportData from './Report';
 
 export default function SoloGame() {
     // about game
     const [score, setScore] = useState(0);
     const [start, setStart] = useState(false);
     const [time, setTime] = useState(0);
+    const [finished, setFinished] = useState(false);
+    const [report, setReport] = useState(0);
+    const history = useHistory();
     // about question
     const [text, setText] = useState('');
     const [answers, setAnswers] = useState([]);
@@ -23,8 +28,17 @@ export default function SoloGame() {
         setStart(true);
         socket.emit('startSoloGame');
         socket.on('testFinished', report => {
-            console.log('finished');
-            console.log('report:', report);
+            setFinished(true);
+            setReport(report);
+            if (finished) {
+                console.log('finished');
+                console.log(finished);
+                return (<ReportData data={report} />)
+                //history.push('/home');
+            } else {
+                return (<Question />)
+                //console.log('question');
+            }
         })
         socket.on('time', time => {
             setTime(time);
