@@ -30,15 +30,6 @@ export default function SoloGame() {
         socket.on('testFinished', report => {
             setFinished(true);
             setReport(report);
-            if (finished) {
-                console.log('finished');
-                console.log(finished);
-                return (<ReportData data={report} />)
-                //history.push('/home');
-            } else {
-                return (<Question />)
-                //console.log('question');
-            }
         })
         socket.on('time', time => {
             setTime(time);
@@ -54,24 +45,28 @@ export default function SoloGame() {
         })
     }
 
-    if (start) {
+    if (!finished) {
+        if (start) {
+            return (
+                <div>
+                    <Question onAnswerClick={handleAnswerClick}
+                        subjectType={subjectType}
+                        answersType={answersType}
+                        subject={subject}
+                        answers={answers}
+                        text={text} />
+                    <br />
+                    <div>score: <span>{score}</span></div>
+                    <div>time: <span>{time}</span></div>
+                </div>
+            )
+        }
         return (
             <div>
-                <Question onAnswerClick={handleAnswerClick}
-                    subjectType={subjectType}
-                    answersType={answersType}
-                    subject={subject}
-                    answers={answers}
-                    text={text} />
-                <br />
-                <div>score: <span>{score}</span></div>
-                <div>time: <span>{time}</span></div>
+                <button onClick={handleStart}>Start</button>
             </div>
         )
+    } else {
+        return <ReportData data={report} />
     }
-    return (
-        <div>
-            <button onClick={handleStart}>Start</button>
-        </div>
-    )
 }

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import http from '../../http';
 
-export default function ReportData() {
+export default function ReportData({ data }) {
 
     const history = useHistory();
-
+    console.log(data);
     const sendToHP = () => {
         history.push('/home');
     }
