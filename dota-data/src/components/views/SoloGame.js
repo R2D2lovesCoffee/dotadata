@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Question from '../Question';
 import { socket, connect } from '../../socket';
 import ReportData from './Report';
@@ -40,6 +40,8 @@ export default function SoloGame() {
             setSubject(question.subject);
             setSubjectType(question.meta.subjectType);
             setAnswersType(question.meta.answersType);
+            socket.emit('ready');
+
         })
     }
 

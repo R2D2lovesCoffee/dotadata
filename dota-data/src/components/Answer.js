@@ -24,7 +24,7 @@ export default function Answer(props) {
         case 'audio':
             return (
                 <div>
-                    <audio controls id={`audio_${props.key}`}>
+                    <audio controls>
                         <source src={content} type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
