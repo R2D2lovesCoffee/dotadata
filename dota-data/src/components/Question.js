@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Subject from './Subject';
 import Answer from './Answer';
-import { socket } from '../socket';
 
 export default function Question({ onAnswerClick, subjectType, answersType, subject, answers, text }) {
 

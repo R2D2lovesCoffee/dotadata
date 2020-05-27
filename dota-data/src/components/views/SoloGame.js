@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Question from '../Question';
 import { socket, connect } from '../../socket';
-import { useHistory } from "react-router-dom";
 import ReportData from './Report';
 
 export default function SoloGame() {

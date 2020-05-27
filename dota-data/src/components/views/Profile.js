@@ -1,5 +1,5 @@
-import React, { useImperativeHandle } from 'react';
-import { state, useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import '../../App.css';
 import http from '../../http';
 
@@ -33,7 +33,7 @@ export default function Profile() {
             <br />
             <input type='file' onChange={ImageUpload} />
             <p>post a picture: </p>
-            <img className="pictureProfile" src='' alt='user-image' />
+            <img className="pictureProfile" src='' alt='' />
             <p></p>
         </div>
     )
@@ -42,7 +42,6 @@ export default function Profile() {
 function ImageUpload(event) {
     const file = event.target.files[0];
     const img = document.querySelector('.pictureProfile');
-    const p = document.querySelectorAll('p')[4];
     const pSituation = document.querySelectorAll('p')[5];
     const inp = document.querySelectorAll('input')[1];
     if (file) {
