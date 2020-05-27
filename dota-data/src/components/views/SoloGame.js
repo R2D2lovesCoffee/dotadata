@@ -11,7 +11,6 @@ export default function SoloGame() {
     const [time, setTime] = useState(0);
     const [finished, setFinished] = useState(false);
     const [report, setReport] = useState(0);
-    const history = useHistory();
     // about question
     const [text, setText] = useState('');
     const [answers, setAnswers] = useState([]);

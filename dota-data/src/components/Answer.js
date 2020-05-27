@@ -36,7 +36,7 @@ export default function Answer(props) {
             </div>)
         case 'text':
             return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)} >
-                {content}
+                <p>{content}</p>
             </div>)
         default:
             return (

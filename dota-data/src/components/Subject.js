@@ -12,15 +12,11 @@ export default function Subject(props) {
     }, [props.type]);
     useEffect(() => {
         if (type === 'audio' && content) {
-            audio.current.pause();
-            audio.current.load();
             audio.current.play();
         }
     }, [content]);
     useEffect(() => {
         if (type === 'audio' && content) {
-            audio.current.pause();
-            audio.current.load();
             audio.current.play();
         }
     }, [type]);
