@@ -14,6 +14,7 @@ import NavigationBar from './components/NavigationBar';
 import Profile from './components/views/Profile';
 import Contact from './components/views/Contact';
 import SoloGame from './components/views/SoloGame';
+import RankedGame from './components/views/RankedGame';
 
 function App() {
   return (
@@ -42,8 +43,7 @@ function App() {
           <SoloGame />
         </Route>
         <Route path="/ranked-game">
-          <div>Workin on it</div>
-          <Link to="/home">Take me back</Link>
+          <RankedGame />
         </Route>
       </Switch>
     </Router>

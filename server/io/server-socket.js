@@ -19,14 +19,15 @@ module.exports = class ServerSocket {
     }
 
     sendQuestion(client) {
-        const random = Math.floor(Math.random() * this.noTypes) + 1;
+        const random = Math.floor(Math.random() * 3) + 1;
         const child = fork(`./scripts/questions/type${random}`);
         child.on('message', ({ question, correct }) => {
             child.kill();
             client.question = question;
             client.correctAnswer = correct;
             client.time = new Date();
-            client.socket.emit('question', { question, score: client.score });
+            client.socket.emit('question', question);
+            client.socket.emit('score', client.score)
             client.currentQuestion++;
         });
         child.on('error', err => {
@@ -57,6 +58,26 @@ module.exports = class ServerSocket {
         return 100;
     }
 
+    handleReady(client) {
+        let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
+        client.interval = setInterval(() => {
+            client.socket.emit('time', --remainingTime);
+            if (remainingTime === 0) {
+                client.addToReport(null);
+                clearInterval(client.interval);
+                if (client.currentlyPlaying) {
+                    client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
+                    if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
+                        this.sendQuestion(client);
+                    } else {
+                        client.reset();
+                        client.socket.emit('testFinished', client.report);
+                    }
+                }
+            }
+        }, 1000);
+    }
+
     start() {
         this.io.use(socketAuth).on('connection', socket => {
             console.log('client connected! ' + socket.id);
@@ -64,23 +85,7 @@ module.exports = class ServerSocket {
 
             socket.on('ready', () => {
                 const client = this.clients.findClient(socket.id);
-                let remainingTime = Client.config[client.currentlyPlaying].timePerQuestion;
-                client.interval = setInterval(() => {
-                    client.socket.emit('time', --remainingTime);
-                    if (remainingTime === 0) {
-                        client.addToReport(null);
-                        clearInterval(client.interval);
-                        if (client.currentlyPlaying) {
-                            client.time = 1000 * Client.config[client.currentlyPlaying].timePerQuestion;
-                            if (client.currentQuestion <= Client.config[client.currentlyPlaying].noQuestions) {
-                                this.sendQuestion(client);
-                            } else {
-                                client.reset();
-                                client.socket.emit('testFinished', client.report);
-                            }
-                        }
-                    }
-                }, 1000);
+                this.handleReady(client);
             })
 
             socket.on('startSoloGame', () => {
