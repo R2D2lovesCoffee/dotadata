@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { SECRET, HOST } = require('./config');
 const nodemailer = require('nodemailer');
+const auth = require('./auth');
+const fs = require('fs');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -61,7 +63,7 @@ router.post('/register', async (req, res) => {
             const user = await User.create({ email, password_hash });
             const crypto = require('crypto').randomBytes(20).toString('hex');
             const verification_token = `${crypto}${user.dataValues.id}`
-            await user.update({ active: false, verification_token });
+            await user.update({ active: false, verification_token, solo_mmr: 0, ranked_mmr: 0, nickname: `player_${user.id}` });
             const link = `${HOST}/api/verification-token?token=${verification_token}`;
             const mailOptions = {
                 from: 'r2d2lovescoffee@gmail.com',
@@ -93,26 +95,38 @@ router.get('/verification-token', async (req, res) => {
     res.redirect(`${HOST}/login`);
 })
 
-router.post('/profile', async (req, res) => {
-    const { nickname } = req.body;
-    //const {image} = req.body;
-
-    try {
-        res.send();
-    } catch (error) {
-        console.log(error);
-        res.status(500).send();
-    }
+router.post('/profile', auth.httpAuth, async (req, res) => {
+    const { nickname } = req.body
+    const { user_id } = req.decoded;
+    User.update({ nickname }, { where: { id: user_id } })
+        .then(() => {
+            if (req.files) {
+                const { image } = req.files;
+                image.mv(`./database/profile_pics/avatar_${user_id}.png`, err => {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send();
+                    } else {
+                        res.send();
+                    }
+                });
+            } else {
+                res.send();
+            }
+        }).catch(err => {
+            console.log(err);
+            res.status(500).send();
+        })
 })
 
-router.get('/profile', async (req, res) => {
-    const { email } = req.query;
-    try {
-        res.send(email);
-    } catch (error) {
-        console.log(error);
+router.get('/profile', auth.httpAuth, async (req, res) => {
+    const { user_id } = req.decoded;
+    User.findOne({ raw: true, attributes: ['email', 'nickname', 'solo_mmr', 'ranked_mmr'], where: { id: user_id } }).then(user => {
+        res.send(user);
+    }).catch(err => {
+        console.log(err);
         res.status(500).send();
-    }
+    })
 })
 
 module.exports = router;
