@@ -9,7 +9,6 @@ function RankedGame() {
 
     useEffect(() => {
         // setTimeWaiting(timeWaiting + 1);
-        console.log(timeWaiting);
         if (timeWaiting) {
             setTimeout(() => {
                 setTimeWaiting(timeWaiting + 1);
@@ -22,7 +21,8 @@ function RankedGame() {
         setMessage('We\'re find you an opponent...');
         socket.emit('findOpponent');
         setTimeWaiting(timeWaiting + 1);
-        socket.on('foundOpponent', opponent => {
+        socket.on('opponent', opponent => {
+            console.log(opponent);
             setStart(true);
         });
     }

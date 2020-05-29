@@ -7,9 +7,13 @@ module.exports = class Client {
         this.currentQuestion = null;
         this.correctAnswer = null;
         this.currentlyPlaying = null;
-        this.interval = null;
+        this.timeInterval = null;
+        this.mmrGapIncreaseInterval = null;
+        this.searchOpponentInterval = null;
         this.report = null;
         this.question = null;
+        this.gap = null;
+        this.finding = false;
         this.addToReport = (givenAnswerIndex) => {
             this.report.score = this.score;
             this.report.questions.push({ question: this.question, correctAnswer: this.correctAnswer, givenAnswer: givenAnswerIndex, time: this.time })
@@ -21,7 +25,9 @@ module.exports = class Client {
             timePerQuestion: 10
         },
         rankedGame: {
-
+            mmrGap: 30,
+            mmrGapIncreaseIntervalTime: 7000,
+            searchOpponentIntervalTime: 2000,
         }
     };
     init(gameType) {
@@ -40,6 +46,15 @@ module.exports = class Client {
         this.correctAnswer = null;
         this.currentlyPlaying = null;
         this.question = null;
-        this.interval = null;
+        this.gap = null;
+        this.mmrGapIncreaseInterval = null;
+        this.searchOpponentInterval = null;
+        this.timeInterval = null;
+    }
+
+    clearIntervals() {
+        clearInterval(this.timeInterval);
+        clearInterval(this.mmrGapIncreaseInterval);
+        clearInterval(this.searchOpponentInterval);
     }
 }
