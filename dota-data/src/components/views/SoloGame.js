@@ -11,9 +11,9 @@ export default function SoloGame() {
     const [report, setReport] = useState(0);
 
     const handleStart = () => {
-        connect();
+        // connect();
         setStart(true);
-        socket.on('testFinished', report => {
+        socket.on('gameFinished', report => {
             setFinished(true);
             setReport(report);
         });
