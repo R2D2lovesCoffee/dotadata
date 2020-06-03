@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { socket, connect } from '../../socket';
-import ReportData from './Report';
+import Report from './Report';
 import Game from '../Game';
+import './Home.css';
 
 export default function SoloGame() {
     const [start, setStart] = useState(false);
@@ -28,11 +29,11 @@ export default function SoloGame() {
                 </>)
         }
         return (
-            <div>
-                <button onClick={handleStart}>Start</button>
+            <div className="wrap">
+                <button className='soloGame' onClick={handleStart}>Start</button>
             </div>
         )
     } else {
-        return <ReportData data={report} />
+        return <Report data={report} />
     }
 }

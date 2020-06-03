@@ -11,8 +11,9 @@ export default function ReportData({ data }) {
 
     return (
         <div>
-            <h1>REPORT HERE TEST 123</h1>
-            <p  >report: </p>
+            <h1>REPORT STATUS</h1>
+            <p>Score: {data.score}  </p>
+            <p></p>
             <br />
             <button onClick={sendToHP}>Go to homepage</button>
         </div>

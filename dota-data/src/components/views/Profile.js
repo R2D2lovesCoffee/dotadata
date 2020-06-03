@@ -38,7 +38,6 @@ export default function Profile() {
     function ImageUpload(event) {
         setFile(event.target.files[0]);
         const img = document.querySelector('.pictureProfile');
-        const pSituation = document.querySelectorAll('p')[5];
         const inp = document.querySelectorAll('input')[1];
         if (file) {
             if (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg') {
@@ -47,13 +46,11 @@ export default function Profile() {
                     img.setAttribute('src', reader.result);
                 })
                 reader.readAsDataURL(file);
-                pSituation.textContent = '';
                 img.style.display = 'block';
             } else {
                 img.setAttribute('src', null);
                 img.style.display = 'none';
                 inp.value = '';
-                pSituation.textContent = "not working, try posting a picture";
             }
         }
     }
@@ -80,7 +77,7 @@ export default function Profile() {
             <br />
             <input type='file' onChange={ImageUpload} />
             <button onClick={save}>Save</button>
-            <img className="pictureProfile" src='' alt='' />
+            <img className='pictureProfile' src='' alt='' />
             <img src={`${config.serverURL}/avatar_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
         </div>
     )

@@ -7,16 +7,17 @@
 #component-home {
     width: 50%;
     margin: auto;
-    margin-top: 3em;
-    column-gap: 2em;
+    margin-top: 2em;
+    column-gap: 1em;
   }
   
 .card-play {
-    width: 50%;
+    width: 100%;
     float: left;
     text-align: center;
-    background-color: darkslategray;
-    height: 20em;
+    background-color:#4D4D4D;
+    height: 18em;
+    
 }
 
 .card p:hover{
@@ -25,4 +26,56 @@
 
 .card-play p {
     font-size: 2rem;
+}
+
+body{
+    background: url('../../assets/images/bg_dota_data.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+   
+}
+
+.soloGame {
+    margin-top: 16em;
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #FFF;
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-size: 300% 100%;
+    border: none;
+    outline: none;
+    padding: 20px;
+}
+
+.soloGame:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+body{
+    font-size: 25px;
+}
+
+li{
+    margin: 10px;
+    font-size: 20px;
+}
+
+.card-img-top{
+    width:100%;
+    height:auto;
+}
+
+.wrap{
+    text-align: center;
 }

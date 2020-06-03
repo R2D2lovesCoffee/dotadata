@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { socket, connect } from '../../socket';
 import Game from '../Game';
+import './Home.css';
 
 function RankedGame() {
     const [start, setStart] = useState(false);
@@ -29,7 +30,7 @@ function RankedGame() {
 
     return start === false ?
         <div>
-            <button onClick={handleFindOpponent}>Ready</button>
+            <button class="rankedGame" onClick={handleFindOpponent}>Ready</button>
             <p>{message}</p>
             <p>Time in queue:<span>{timeWaiting}</span></p>
         </div> :
