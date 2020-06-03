@@ -6,6 +6,7 @@ function RankedGame() {
     const [start, setStart] = useState(false);
     const [message, setMessage] = useState('');
     const [timeWaiting, setTimeWaiting] = useState(0);
+    const [opponent, setOpponent] = useState('');
 
     useEffect(() => {
         // setTimeWaiting(timeWaiting + 1);
@@ -17,12 +18,12 @@ function RankedGame() {
     }, [timeWaiting])
 
     const handleFindOpponent = () => {
-        connect();
+        // connect();
         setMessage('We\'re find you an opponent...');
         socket.emit('findOpponent');
         setTimeWaiting(timeWaiting + 1);
         socket.on('opponent', opponent => {
-            console.log(opponent);
+            setOpponent(opponent);
             setStart(true);
         });
     }

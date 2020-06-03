@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -15,8 +15,12 @@ import Profile from './components/views/Profile';
 import Contact from './components/views/Contact';
 import SoloGame from './components/views/SoloGame';
 import RankedGame from './components/views/RankedGame';
+import { connect } from './socket';
 
 function App() {
+  useEffect(() => {
+    connect();
+  }, [])
   return (
     <Router>
       <NavigationBar />

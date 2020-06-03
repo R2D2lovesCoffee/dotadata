@@ -27,6 +27,10 @@ function Game({ type }) {
             setAnswersType(question.meta.answersType);
             socket.emit('ready');
         })
+
+        socket.on('gameFinished', report => {
+            console.log(report);
+        })
     }, [])
 
     return (
