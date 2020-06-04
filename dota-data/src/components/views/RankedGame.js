@@ -30,10 +30,12 @@ function RankedGame() {
     }
 
     return start === false ?
-        <div>
-            <button class="rankedGame" onClick={handleFindOpponent}>Ready</button>
+        <div className='wrapRank'>
+            <button className="buttonDesign " onClick={handleFindOpponent}>Ready</button>
             <p>{message}</p>
-            <p>Time in queue:<span>{timeWaiting}</span></p>
+            <span className="border border-secondary">
+                Time in queue: <span>{timeWaiting}</span>
+            </span>
         </div> :
         <Game type={'ranked'} />
 }

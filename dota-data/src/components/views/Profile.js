@@ -3,7 +3,7 @@ import { useState } from 'react';
 import '../../App.css';
 import http from '../../http';
 import config from '../../config';
-
+import './Home.css';
 export default function Profile() {
 
     const [email, setEmail] = useState('');
@@ -55,30 +55,33 @@ export default function Profile() {
         }
     }
     return (
-        <div>
+        <div className="container">
             <h1>Profile</h1>
             <p>solo rating: {soloMmr}</p>
-            <p>multiplayer rating: {rankedMmr}</p>
             {
                 edit === false ? <div>
                     <p>Nickname:
-                    <span>{nickname}</span>
-                        <button onClick={() => setEdit(true)}>Edit</button>
+                    <span> {nickname}</span>
+                        <button onClick={() => setEdit(true)} className="buttonDesign">Edit</button>
                     </p>
                 </div> :
                     <div>
                         <input value={nickname} onChange={handleNicknameChange} />
                     </div>
             }
-
-            {/* <input value={nickname} onChange={handleNicknameChange} placeholder="nickname" /> */}
             <p>email: {email}</p>
-
             <br />
-            <input type='file' onChange={ImageUpload} />
-            <button onClick={save}>Save</button>
+            <p>Enter a profile pic: </p>
+            <div className="input-group mb-3">
+                <div className="custom-file">
+                    <input type="file" onChange={ImageUpload} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
+                    <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+            <br />
+            <button onClick={save} className="buttonDesign ">Save</button>
             <img className='pictureProfile' src='' alt='' />
-            <img src={`${config.serverURL}/avatar_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+            <img className="pictureProfile img-thumbnail" src={`${config.serverURL}/avatar_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
         </div>
     )
 }

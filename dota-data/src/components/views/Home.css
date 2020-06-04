@@ -16,7 +16,7 @@
     float: left;
     text-align: center;
     background-color:#4D4D4D;
-    height: 18em;
+    height: 17em;
     
 }
 
@@ -78,4 +78,39 @@ li{
 
 .wrap{
     text-align: center;
+}
+
+.wrapRank{
+    text-align: center;
+    margin-top: 8em; 
+}
+
+.buttonDesign{
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #FFF;
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-size: 300% 100%;
+    border: none;
+    outline: none;
+    padding: 20px;
+}
+
+.buttonDesign:hover{
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+@media (max-width: 360px){
+    .container p{
+        font-size: 20px;
+    }
 }
