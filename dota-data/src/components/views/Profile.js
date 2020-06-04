@@ -74,8 +74,8 @@ export default function Profile() {
             <p>Enter a profile pic: </p>
             <div className="input-group mb-3">
                 <div className="custom-file">
-                    <input type="file" onChange={ImageUpload} class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
-                    <label className="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <input type="file" onChange={ImageUpload} className="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" />
+                    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
                 </div>
             </div>
             <br />
