@@ -8,9 +8,9 @@ function RankedGame() {
     const [message, setMessage] = useState('');
     const [timeWaiting, setTimeWaiting] = useState(0);
     const [opponent, setOpponent] = useState('');
+    const [opponentScore, setOpponentScore] = useState(0);
 
     useEffect(() => {
-        // setTimeWaiting(timeWaiting + 1);
         if (timeWaiting) {
             setTimeout(() => {
                 setTimeWaiting(timeWaiting + 1);
@@ -19,7 +19,6 @@ function RankedGame() {
     }, [timeWaiting])
 
     const handleFindOpponent = () => {
-        // connect();
         setMessage('We\'re find you an opponent...');
         socket.emit('findOpponent');
         setTimeWaiting(timeWaiting + 1);
@@ -27,6 +26,10 @@ function RankedGame() {
             setOpponent(opponent);
             setStart(true);
         });
+        socket.on('opponentAnswer', index => {
+            console.log(index);
+        })
+        socket.on('opponentScore', score => setOpponentScore(score));
     }
 
     return start === false ?
@@ -37,7 +40,11 @@ function RankedGame() {
                 Time in queue: <span>{timeWaiting}</span>
             </span>
         </div> :
-        <Game type={'ranked'} />
+        <>
+            <Game type={'ranked'} />
+            <p>Opponent score: <span>{opponentScore}</span></p>
+        </>
+
 }
 
 export default RankedGame;

@@ -12,7 +12,7 @@ module.exports = class Client {
         this.currentQuestion = null;
         this.score = null;
         this.gap = 30;
-        this.questions = null;
+        this.answers = null;
         this.opponent = null;
         this.currentlyPlaying = null;
     };
@@ -20,22 +20,19 @@ module.exports = class Client {
         gapIncreaseTime: 4000,
         gapValueToIncrease: 30,
         findOpponentIntervalTime: 2000,
-        timePerQuestion: 5000,
+        ranked: {
+            timePerQuestion: 10000,
+            noQuestions: 5
+        },
+        solo: {
+            timePerQuestion: 5000,
+        }
     }
 
     initGame(type) {
-        this.questions = [];
+        this.answers = [];
         this.score = 0;
         this.currentlyPlaying = type;
-        switch (type) {
-            case 'ranked':
-                this.noQuestions = 10;
-                break;
-            case 'solo':
-
-            default:
-                throw new Error('bad \'type\' parameter for init method');
-        }
     }
 
     reset() {
