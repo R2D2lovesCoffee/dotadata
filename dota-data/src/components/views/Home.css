@@ -114,3 +114,8 @@ li{
         font-size: 20px;
     }
 }
+
+#special{
+    margin-top: 2em;
+    border:2px solid gray;
+}
