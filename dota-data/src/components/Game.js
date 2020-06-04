@@ -9,6 +9,7 @@ function Game({ type }) {
     const [subject, setSubject] = useState('');
     const [subjectType, setSubjectType] = useState('');
     const [answersType, setAnswersType] = useState('');
+    const [myScore, setMyScore] = useState(0);
 
     const handleAnswerClick = (index) => {
         socket.emit('answer', index);
@@ -28,6 +29,8 @@ function Game({ type }) {
             socket.emit('ready');
         })
 
+        socket.on('score', score => setMyScore(score));
+
         socket.on('gameFinished', report => {
             console.log(report);
         })
@@ -43,6 +46,7 @@ function Game({ type }) {
                 text={text} />
             <br />
             <div>time: <span>{time}</span></div>
+            <p>My score: <span>{myScore}</span></p>
         </div>
     )
 }
