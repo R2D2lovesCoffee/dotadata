@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { socket, connect } from '../../socket';
-import Report from './Report';
+import Report from '../Report';
 import Game from '../Game';
 import './Home.css';
 
 export default function SoloGame() {
     const [start, setStart] = useState(false);
-    const [score, setScore] = useState(0);
     const [finished, setFinished] = useState(false);
     const [report, setReport] = useState(0);
 
+    useEffect(() => () => {
+        socket.off('gameFinished');
+    }, [])
+
     const handleStart = () => {
-        // connect();
         setStart(true);
         socket.on('gameFinished', report => {
             setFinished(true);
             setReport(report);
         });
-        socket.on('score', received => setScore(received));
     }
 
     if (!finished) {
@@ -25,7 +26,6 @@ export default function SoloGame() {
             return (
                 <>
                     <Game type={'solo'} />
-                    <p>score: <span>{score}</span></p>
                 </>)
         }
         return (
