@@ -81,7 +81,7 @@ export default function Profile() {
                 </div>
             </div>
             <br />
-            <button onClick={save} className="buttonDesign ">Save</button>
+            <button onClick={save} className="buttonDesign" id="saveBtn" >Save</button>
             <img className='pictureProfile' src='' alt='' />
             <img className="pictureProfile img-thumbnail" src={`${config.serverURL}/avatar_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
         </div>

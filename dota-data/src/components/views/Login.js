@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import http from '../../http';
+import './Home.css';
 
 function Login() {
     const history = useHistory();
@@ -32,15 +33,35 @@ function Login() {
     }
 
     return (
-        <div className="form">
-            <input value={email} onChange={handleEmailChange} placeholder="email" />
-            <input value={password} onChange={handlePasswordChange} placeholder="password" type="password" />
-            <button onClick={login}>login</button>
+        <div className="container" id="spacing">
             <div>
-                Don't have an account?
-                <button onClick={() => history.push('/register')}>SIGN UP</button>
+                <h1 className="border-bottom border-secondary" id="heading">Login Section</h1>
+                <div className="row">
+                    <div className="col-25">
+                        <label >Email</label>
+                    </div>
+                    <div className="col-75">
+                        <input type='text' value={email} onChange={handleEmailChange} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-25">
+                        <label >Password</label>
+                    </div>
+                    <div className="col-75">
+                        <input value={password} onChange={handlePasswordChange} type="password" />
+                    </div>
+                </div>
+                <div className="row">
+                    <button id="centerBtn" className="soloGame" onClick={login}>LOGIN</button>
+                </div>
+                <div id="left">
+                    <div>
+                        Don't have an account?
+                    <button id="signupBtn" onClick={() => history.push('/register')}>SIGN UP</button>
+                    </div>
+                </div>
             </div>
-            <p>{message}</p>
         </div>
     )
 }

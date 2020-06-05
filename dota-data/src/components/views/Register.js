@@ -37,17 +37,42 @@ function Register() {
     }
 
     return (
-        <div>
-            <div className="form">
-                <input value={email} required placeholder="Email" onChange={handleEmailChange} />
-                <input value={password} type="password" placeholder="Password" onChange={handlePasswordChange} />
-                <input value={confirmPassword} type="password" placeholder="Confirm passowrd" onChange={handleConfirmPasswordChange} />
-                <button onClick={register} >REGISTER</button>
-                <div>
-                    Already have an account?
-                    <button onClick={() => history.push('/login')}>SIGN IN</button>
+        <div className="container" id="spacing">
+            <div>
+                <h1 className="border-bottom border-secondary" id="heading">Welcome to our game!</h1>
+                <div className="row">
+                    <div className="col-25">
+                        <label>Email</label>
+                    </div>
+                    <div className="col-75">
+                        <input type='text' value={email} required onChange={handleEmailChange} />
+                    </div>
                 </div>
-                <p>{message}</p>
+                <div className="row">
+                    <div className="col-25">
+                        <label>Password</label>
+                    </div>
+                    <div className="col-75">
+                        <input value={password} type="password" onChange={handlePasswordChange} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-25">
+                        <label>Confirm Password</label>
+                    </div>
+                    <div className="col-75">
+                        <input value={confirmPassword} type="password" onChange={handleConfirmPasswordChange} />
+                    </div>
+                </div>
+                <div className="row">
+                    <button id="centerBtn" className="soloGame" onClick={register} >REGISTER</button>
+                </div>
+                <div id="left">
+                    <div>
+                        Already have an account?
+                    <button id="signupBtn" onClick={() => history.push('/login')}>SIGN IN</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

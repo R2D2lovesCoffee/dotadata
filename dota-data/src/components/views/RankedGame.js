@@ -19,7 +19,7 @@ function RankedGame() {
     }, [timeWaiting])
 
     const handleFindOpponent = () => {
-        setMessage('We\'re find you an opponent...');
+        setMessage('We\'re finding you an opponent...');
         socket.emit('findOpponent');
         setTimeWaiting(timeWaiting + 1);
         socket.on('opponent', opponent => {
