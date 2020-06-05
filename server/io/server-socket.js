@@ -20,7 +20,7 @@ module.exports = class ServerSocket {
     }
 
     calculateScore(time) {
-        return Number((50 + (10 - time / 1000) * 10).toFixed(2));
+        return 50 + (10 - time / 1000) * 10;
     }
 
     generateQuestion() {
@@ -95,6 +95,15 @@ module.exports = class ServerSocket {
                 }
             })
 
+            socket.on('startSoloGame', async () => {
+                const { user } = socket;
+                user.initGame('solo');
+                const { question, correct } = await this.generateQuestion();
+                user.questions.push({ question, correct });
+                socket.emit('question', question);
+                user.currentQuestion = 0;
+            })
+
             socket.on('ready', async () => {
                 if (socket.user.currentlyPlaying === 'ranked') {
                     const { game } = this.io.of(Object.keys(socket.rooms)[1]);
@@ -137,7 +146,27 @@ module.exports = class ServerSocket {
                         }
                     }
                 } else if (socket.user.currentlyPlaying === 'solo') {
-
+                    let time = Client.config.solo.timePerQuestion / 1000;
+                    socket.user.time = new Date();
+                    socket.user.timeInterval = setInterval(() => {
+                        socket.emit('time', time);
+                        if (time === 0) {
+                            clearInterval(socket.user.timeInterval);
+                            socket.user.answers.push(null);
+                            if (socket.user.currentQuestion + 1 !== Client.config.solo.noQuestions) {
+                                socket.emit('question', socket.user.questions[socket.user.currentQuestion + 1].question);
+                                socket.user.currentQuestion++;
+                            } else {
+                                socket.emit('gameFinished', { questions: socket.user.questions, answers: socket.user.answers, score: socket.user.score });
+                                socket.user.reset();
+                            }
+                        }
+                        time--;
+                    }, 1000);
+                    if (socket.user.currentQuestion + 1 < Client.config.solo.noQuestions) {
+                        const { question, correct } = await this.generateQuestion();
+                        socket.user.questions.push({ question, correct })
+                    }
                 }
             })
 
@@ -148,7 +177,7 @@ module.exports = class ServerSocket {
                         socket.user.answers.push(index);
                         socket.user.answered = true;
                         const opponentSocket = game.socket1.id === socket.id ? game.socket2 : game.socket1;
-                        opponentSocket.emit('opponentAnswer', index);
+                        // opponentSocket.emit('opponentAnswer', index);
                         if (index === game.questions[game.currentQuestion].correct) {
                             const time = new Date() - socket.user.time;
                             socket.user.score += this.calculateScore(time);
@@ -168,17 +197,42 @@ module.exports = class ServerSocket {
                         }
                     }
                 } else if (socket.user.currentlyPlaying === 'solo') {
-
+                    clearInterval(socket.user.timeInterval);
+                    const time = new Date() - socket.user.time;
+                    socket.user.answers.push(index);
+                    if (index === socket.user.questions[socket.user.currentQuestion].correct) {
+                        socket.user.score += this.calculateScore(time);
+                        socket.emit('score', socket.user.score);
+                    }
+                    if (socket.user.currentQuestion + 1 !== Client.config.solo.noQuestions) {
+                        socket.emit('question', socket.user.questions[socket.user.currentQuestion + 1].question)
+                        socket.user.currentQuestion++;
+                    } else {
+                        socket.emit('gameFinished', { questions: socket.user.questions, answers: socket.user.answers, score: socket.user.score });
+                        let noCorrect = 0;
+                        for (let i = 0; i < socket.user.questions.length; i++) {
+                            if (socket.user.questions[i].correct === socket.user.answers[i]) {
+                                noCorrect++;
+                            }
+                        }
+                        socket.user.solo_mmr = parseInt(socket.user.solo_mmr + 25 / Client.config.solo.noQuestions * noCorrect)
+                        socket.user.reset();
+                        User.update({ solo_mmr: socket.user.solo_mmr }, { where: { id: socket.user.user_id } })
+                    }
                 }
             })
 
-            // socket.on('disconnect', () => {
-            //     const index = this.clients.map(client => client.socketID).indexOf(socket.id);
-            //     this.clients[index].clearIntervals();
-            //     this.clients.splice(index, 1);
-            //     const index2 = this.searchingClients.map(client => client.socketID).indexOf(socket.id);
-            //     this.searchingClients.splice(index2, 1);
-            // })
+            socket.on('stopFinding', () => {
+                const { user } = socket;
+                user.finding = false;
+                clearInterval(user.findOpponentInterval);
+            })
+
+            socket.on('disconnect', () => {
+                const { user } = socket;
+                user.finding = false;
+                clearInterval(user.findOpponentInterval);
+            })
         })
     }
 }

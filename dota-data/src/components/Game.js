@@ -15,6 +15,12 @@ function Game({ type }) {
         socket.emit('answer', index);
     }
 
+    useEffect(() => () => {
+        socket.off('time');
+        socket.off('question');
+        socket.off('score;');
+    }, [])
+
     useEffect(() => {
         socket.emit(type === 'solo' ? 'startSoloGame' : 'startRankedGame');
         socket.on('time', time => {
@@ -30,10 +36,6 @@ function Game({ type }) {
         })
 
         socket.on('score', score => setMyScore(score));
-
-        socket.on('gameFinished', report => {
-            console.log(report);
-        })
     }, [])
 
     return (
@@ -46,7 +48,7 @@ function Game({ type }) {
                 text={text} />
             <br />
             <div>time: <span>{time}</span></div>
-            <p>My score: <span>{myScore}</span></p>
+            <p>My score: <span>{Number(myScore.toFixed(2))}</span></p>
         </div>
     )
 }
