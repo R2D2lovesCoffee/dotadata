@@ -12,7 +12,8 @@ function RankedGame() {
     const [opponentScore, setOpponentScore] = useState(0);
     const [showTimer, setShowTimer] = useState(null);
     const [finished, setFinished] = useState(false);
-    const [report, setReport] = useState(null);
+    const [report, setReport] = useState(0);
+    const [type, setType] = useState('ranked');
 
     useEffect(() => () => {
         socket.off('opponent');
@@ -35,13 +36,17 @@ function RankedGame() {
         socket.on('gameFinished', report => {
             setFinished(true);
             setReport(report);
-            console.log(report);
+            //console.log(report);
+            setType(type);
         })
         socket.on('opponentAnswer', index => {
             console.log(index);
         })
         socket.on('opponentScore', score => setOpponentScore(score));
+
     }
+
+
     if (!finished) {
         return start === false ?
             <div className='wrapRank'>
@@ -57,7 +62,7 @@ function RankedGame() {
                 <p>Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
             </>
     } else {
-        return <Report data={report} />
+        return <Report dataRanked={report} type={type} />
     }
 
 }

@@ -8,6 +8,7 @@ export default function SoloGame() {
     const [start, setStart] = useState(false);
     const [finished, setFinished] = useState(false);
     const [report, setReport] = useState(0);
+    const [type, setType] = useState('solo');
 
     useEffect(() => () => {
         socket.off('gameFinished');
@@ -18,6 +19,7 @@ export default function SoloGame() {
         socket.on('gameFinished', report => {
             setFinished(true);
             setReport(report);
+            setType(type);
         });
     }
 
@@ -34,6 +36,6 @@ export default function SoloGame() {
             </div>
         )
     } else {
-        return <Report data={report} />
+        return <Report data={report} type={type} />
     }
 }

@@ -57,8 +57,8 @@ export default function Profile() {
     return (
         <div className="container" id="special">
             <h1>Profile</h1>
-            <p>solo rating: {soloMmr}</p>
-            <p>multiplayer rating: {rankedMmr}</p>
+            <p>Solo Rating: {soloMmr}</p>
+            <p>Multiplayer Rating: {rankedMmr}</p>
             {
                 edit === false ? <div>
                     <p>Nickname:
@@ -71,7 +71,7 @@ export default function Profile() {
                     </div>
             }
             {/*<input value={nickname} onChange={handleNicknameChange} placeholder="nickname" /> */}
-            <p>email: {email}</p>
+            <p>Email: {email}</p>
             <br />
             <p>Enter a profile pic: </p>
             <div className="input-group mb-3">
