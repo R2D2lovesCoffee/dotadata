@@ -68,6 +68,7 @@ export default function Report(props) {
             )
         } else if (props.type === 'ranked') {
 
+            var situation = 0;
             var personalRankedContor = 0;
             var personalRankedPercentage = 0;
             var opponentRankedContor = 0;
@@ -151,9 +152,31 @@ export default function Report(props) {
                     break;
             }
 
+            if (props.dataRanked.opponentScore < props.dataRanked.myScore) {
+                situation = 'You\'ve won!'
+            } else if (props.dataRanked.opponentScore > props.dataRanked.myScore) {
+                situation = 'You\'ve lost!';
+            } else if (props.dataRanked.myScore === props.dataRanked.opponentScore) {
+                situation = 'Equal!';
+            }
+
+            let specific = '';
+
+            if (situation === 'You\'ve won!') {
+                specific = 'green';
+            }
+            if (situation === 'You\'ve lost!') {
+                specific = 'red';
+            }
+            if (situation === 'Equal!') {
+                specific = '#d9d9d9';
+            }
+
+
             return (
                 <div className="container">
                     <h1>RANKED STATUS</h1>
+                    <h1 style={{ color: specific }}> {situation} </h1>
                     <p>My numeric score: {props.dataRanked.myScore} </p>
                     <p>Opponent's numeric score: {props.dataRanked.opponentScore}</p>
                     <p>My score: {personalRankedContor}/{props.dataRanked.questions.length} </p>
