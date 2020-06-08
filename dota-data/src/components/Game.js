@@ -39,7 +39,7 @@ function Game({ type }) {
     }, [])
 
     return (
-        <div>
+        <div className='container'>
             <Question onAnswerClick={handleAnswerClick}
                 subjectType={subjectType}
                 answersType={answersType}
