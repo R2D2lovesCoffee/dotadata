@@ -26,7 +26,7 @@ export default function Report(props) {
             percentage = (contor / props.data.questions.length) * 100 + '%';
 
             return (
-                <div className="container">
+                <div className="container" id='special'>
                     <h1>SOLO STATUS</h1>
                     <p>Numeric score: {props.data.score} </p>
                     <p>
@@ -82,7 +82,7 @@ export default function Report(props) {
 
 
             return (
-                <div className="container">
+                <div className="container" id='special'>
                     <h1>RANKED STATUS</h1>
                     <h1 style={{ color: specific }}> {situation} </h1>
                     <p>My numeric score: {props.dataRanked.myScore} </p>

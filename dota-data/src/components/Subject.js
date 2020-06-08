@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import '../components/views/Home.css';
 
 export default function Subject(props) {
     const [content, setContent] = useState('');
@@ -23,26 +24,26 @@ export default function Subject(props) {
     switch (type) {
         case 'audio':
             return (
-                <div>
-                    <audio controls ref={audio}>
+                <div className="container" id='special'>
+                    <audio controls className="container embed-responsive-item" ref={audio}>
                         <source src={content} type="audio/mpeg" />
                         Your browser does not support the audio element.
                     </audio>
                 </div>
             )
         case 'img':
-            return (<div>
-                <img src={content} />
+            return (<div className="container" id='special'>
+                <img className='centerImage' src={content} />
             </div>)
         case 'text':
-            return (<div>
+            return (<div className="container" id='special'>
                 {content}
             </div>)
         case 'none':
             return (<div></div>)
         default:
             return (
-                <div>subject type not recognized</div>
+                <div className="container">subject type not recognized</div>
             )
     }
 }

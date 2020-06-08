@@ -47,8 +47,8 @@ function Game({ type }) {
                 answers={answers}
                 text={text} />
             <br />
-            <div>time: <span>{time}</span></div>
-            <p>My score: <span>{Number(myScore.toFixed(2))}</span></p>
+            <div className="container">Time: <span>{time}</span></div>
+            <p className="container">My score: <span>{Number(myScore.toFixed(2))}</span></p>
         </div>
     )
 }

@@ -31,16 +31,16 @@ export default function Answer(props) {
                 </div>
             )
         case 'img':
-            return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)}>
-                <img src={content} />
+            return (<div className="clickable container" id='special' onClick={props.onAnswerClick.bind(this, props.index)}>
+                <li><img src={content} /></li>
             </div>)
         case 'text':
-            return (<div className="clickable" onClick={props.onAnswerClick.bind(this, props.index)} >
-                <p>{content}</p>
+            return (<div className="clickable container" id='special' onClick={props.onAnswerClick.bind(this, props.index)} >
+                <li>{content}</li>
             </div>)
         default:
             return (
-                <div>subject type not recognized</div>
+                <div className="container">subject type not recognized</div>
             )
     }
 }
