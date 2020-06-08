@@ -50,7 +50,7 @@ export default function Report(props) {
                 }
             }
 
-            personalRankedPercentage = (personalRankedContor / props.dataRanked.questions.length) * 100 + '%';
+            personalRankedPercentage = (personalRankedContor / props.dataRanked.myAnswers.length) * 100 + '%';
 
             for (var j = 0; j < props.dataRanked.questions.length; j++) {
                 if (props.dataRanked.opponentAnswers[j] === props.dataRanked.questions[j].correct) {
@@ -58,7 +58,7 @@ export default function Report(props) {
                 }
             }
 
-            opponentRankedPercentage = (opponentRankedContor / props.dataRanked.questions.length) * 100 + '%';
+            opponentRankedPercentage = (opponentRankedContor / props.dataRanked.opponentAnswers.length) * 100 + '%';
 
             if (props.dataRanked.opponentScore < props.dataRanked.myScore) {
                 situation = 'You\'ve won!'
@@ -87,11 +87,11 @@ export default function Report(props) {
                     <h1 style={{ color: specific }}> {situation} </h1>
                     <p>My numeric score: {props.dataRanked.myScore} </p>
                     <p>Opponent's numeric score: {props.dataRanked.opponentScore}</p>
-                    <p>My score: {personalRankedContor}/{props.dataRanked.questions.length} </p>
+                    <p>My score: {personalRankedContor}/{props.dataRanked.myAnswers.length} </p>
                     <p>
                         My percentage: {personalRankedPercentage}
                     </p>
-                    <p>Opponent's score: {opponentRankedContor}/{props.dataRanked.questions.length} </p>
+                    <p>Opponent's score: {opponentRankedContor}/{props.dataRanked.opponentAnswers.length} </p>
                     <p>Opponent's percentage: {opponentRankedPercentage} </p>
                     <button className="buttonDesign" onClick={sendToHP}>Go to homepage</button>
                 </div>
