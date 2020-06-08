@@ -16,44 +16,14 @@ export default function Report(props) {
         if (props.type === 'solo') {
             var contor = 0;
             var percentage = 0;
-            if (props.data.answers[0] === props.data.questions[0].correct) {
-                contor++;
-            }
-            if (props.data.answers[1] === props.data.questions[1].correct) {
-                contor++;
-            }
-            if (props.data.answers[2] === props.data.questions[2].correct) {
-                contor++;
-            }
-            if (props.data.answers[3] === props.data.questions[3].correct) {
-                contor++;
-            }
-            if (props.data.answers[4] === props.data.questions[4].correct) {
-                contor++;
+
+            for (var i = 0; i < props.data.questions.length; i++) {
+                if (props.data.answers[i] === props.data.questions[i].correct) {
+                    contor++;
+                }
             }
 
-            switch (contor) {
-                case 0:
-                    percentage = '0%';
-                    break;
-                case 1:
-                    percentage = '20%';
-                    break;
-                case 2:
-                    percentage = '40%';
-                    break;
-                case 3:
-                    percentage = '60%';
-                    break;
-                case 4:
-                    percentage = '80%';
-                    break;
-                case 5:
-                    percentage = '100%';
-                    break;
-                default:
-                    break;
-            }
+            percentage = (contor / props.data.questions.length) * 100 + '%';
 
             return (
                 <div className="container">
@@ -74,83 +44,21 @@ export default function Report(props) {
             var opponentRankedContor = 0;
             var opponentRankedPercentage = 0;
 
-            if (props.dataRanked.myAnswers[0] === props.dataRanked.questions[0].correct) {
-                personalRankedContor++;
-            }
-            if (props.dataRanked.myAnswers[1] === props.dataRanked.questions[1].correct) {
-                personalRankedContor++;
-            }
-            if (props.dataRanked.myAnswers[2] === props.dataRanked.questions[2].correct) {
-                personalRankedContor++;
-            }
-            if (props.dataRanked.myAnswers[3] === props.dataRanked.questions[3].correct) {
-                personalRankedContor++;
-            }
-            if (props.dataRanked.myAnswers[4] === props.dataRanked.questions[4].correct) {
-                personalRankedContor++;
+            for (var z = 0; z < props.dataRanked.questions.length; z++) {
+                if (props.dataRanked.myAnswers[z] === props.dataRanked.questions[z].correct) {
+                    personalRankedContor++;
+                }
             }
 
-            switch (personalRankedContor) {
-                case 0:
-                    personalRankedPercentage = '0%';
-                    break;
-                case 1:
-                    personalRankedPercentage = '20%';
-                    break;
-                case 2:
-                    personalRankedPercentage = '40%';
-                    break;
-                case 3:
-                    personalRankedPercentage = '60%';
-                    break;
-                case 4:
-                    personalRankedPercentage = '80%';
-                    break;
-                case 5:
-                    personalRankedPercentage = '100%';
-                    break;
-                default:
-                    break;
+            personalRankedPercentage = (personalRankedContor / props.dataRanked.questions.length) * 100 + '%';
+
+            for (var j = 0; j < props.dataRanked.questions.length; j++) {
+                if (props.dataRanked.opponentAnswers[j] === props.dataRanked.questions[j].correct) {
+                    opponentRankedContor++;
+                }
             }
 
-            if (props.dataRanked.opponentAnswers[0] === props.dataRanked.questions[0].correct) {
-                opponentRankedContor++;
-            }
-            if (props.dataRanked.opponentAnswers[1] === props.dataRanked.questions[1].correct) {
-                opponentRankedContor++;
-            }
-            if (props.dataRanked.opponentAnswers[2] === props.dataRanked.questions[2].correct) {
-                opponentRankedContor++;
-            }
-            if (props.dataRanked.opponentAnswers[3] === props.dataRanked.questions[3].correct) {
-                opponentRankedContor++;
-            }
-            if (props.dataRanked.opponentAnswers[4] === props.dataRanked.questions[4].correct) {
-                opponentRankedContor++;
-            }
-
-            switch (opponentRankedContor) {
-                case 0:
-                    opponentRankedPercentage = '0%';
-                    break;
-                case 1:
-                    opponentRankedPercentage = '20%';
-                    break;
-                case 2:
-                    opponentRankedPercentage = '40%';
-                    break;
-                case 3:
-                    opponentRankedPercentage = '60%';
-                    break;
-                case 4:
-                    opponentRankedPercentage = '80%';
-                    break;
-                case 5:
-                    opponentRankedPercentage = '100%';
-                    break;
-                default:
-                    break;
-            }
+            opponentRankedPercentage = (opponentRankedContor / props.dataRanked.questions.length) * 100 + '%';
 
             if (props.dataRanked.opponentScore < props.dataRanked.myScore) {
                 situation = 'You\'ve won!'
