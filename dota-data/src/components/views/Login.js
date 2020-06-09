@@ -4,6 +4,7 @@ import http from '../../http';
 import './Home.css';
 
 function Login() {
+
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ function Login() {
             })
     }
 
+
     return (
         <div className="container" id="spacing">
             <div>
@@ -50,6 +52,11 @@ function Login() {
                     </div>
                     <div className="col-75">
                         <input value={password} onChange={handlePasswordChange} type="password" />
+                    </div>
+                </div>
+                <div className='row container'>
+                    <div id='centerText'>
+                        {message}
                     </div>
                 </div>
                 <div className="row">

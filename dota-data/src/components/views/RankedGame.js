@@ -49,8 +49,8 @@ function RankedGame() {
     if (!finished) {
         return start === false ?
             <div className='wrapRank'>
-                <button className="buttonDesign " onClick={handleFindOpponent}>Ready</button>
-                <button className="buttonDesign ">Stop Seaching</button>
+                <button className="buttonDesign" onClick={handleFindOpponent}>Ready</button>
+                <button className="buttonDesign" id='spacingStop'>Stop Seaching</button>
                 <p>{message}</p>
                 <span className="border border-secondary">
                     Time in queue: {showTimer ? <Timer /> : 0}

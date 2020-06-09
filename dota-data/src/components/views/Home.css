@@ -134,6 +134,10 @@ li{
    margin:0 auto;
 }
 
+#centerText{
+    margin:0 auto;
+}
+
 .centerImage{
     display: block;
     margin: 0 auto;
@@ -248,4 +252,15 @@ input[type=text], select, textarea {
     padding-top: 0;
     padding-bottom: 0;
     font-size: 25px;
+  }
+
+  #spacingStop{
+      margin-left: 15px;
+  }
+
+  @media (max-width: 415px){
+      #centerText{
+          font-size:15px;
+          font-weight: 500;
+      }
   }
