@@ -63,7 +63,7 @@ export default function Profile() {
                 edit === false ? <div>
                     <p>Nickname:
                     <span> {nickname}</span>
-                        <button onClick={() => setEdit(true)} className="buttonDesign">Edit</button>
+                        <button onClick={() => setEdit(true)} className="buttonDesign" id='editBtn'>Edit</button>
                     </p>
                 </div> :
                     <div>

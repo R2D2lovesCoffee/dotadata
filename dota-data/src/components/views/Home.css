@@ -177,8 +177,7 @@ li{
   }
 
 input[type=password]{
-    width: 100%;
-    padding: 12px;
+    width: 90%;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
@@ -186,15 +185,13 @@ input[type=password]{
 }
 
 input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
+    width: 90%;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
   }
   
   label {
-    padding: 12px 12px 12px 0;
     display: inline-block;
   }
   
@@ -227,8 +224,26 @@ input[type=text], select, textarea {
   
   /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
+    .col-25, .col-75, input[type=text], input[type=password] {
       width: 100%;
       margin-top: 0;
     }
+  }
+
+  #editBtn{
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #FFF;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-size: 300% 100%;
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
   }

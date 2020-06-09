@@ -4,7 +4,6 @@ import '../App.css';
 
 export default function Report(props) {
 
-    console.log(props);
     const history = useHistory();
     const sendToHP = () => {
         history.push('/home');

@@ -35,7 +35,7 @@ function Login() {
     return (
         <div className="container" id="spacing">
             <div>
-                <h1 className="border-bottom border-secondary" id="heading">Login Section</h1>
+                <h1 className="border-bottom border-secondary" id="heading">Login</h1>
                 <div className="row">
                     <div className="col-25">
                         <label >Email</label>
@@ -45,7 +45,7 @@ function Login() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-25">
+                    <div className="col-25" >
                         <label >Password</label>
                     </div>
                     <div className="col-75">
