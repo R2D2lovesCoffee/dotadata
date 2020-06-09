@@ -56,12 +56,12 @@ export default function Profile() {
     }
     return (
         <div className="container" id="special">
-            <h1>Profile</h1>
-            <p id='special'>Solo Rating: {soloMmr}</p>
-            <p id='special'>Multiplayer Rating: {rankedMmr}</p>
+            <h1 id='special'>Profile</h1>
+            <p>Solo Rating: {soloMmr}</p>
+            <p>Multiplayer Rating: {rankedMmr}</p>
             {
                 edit === false ? <div>
-                    <p id='special'>Nickname:
+                    <p>Nickname:
                     <span> {nickname}</span>
                         <button onClick={() => setEdit(true)} className="buttonDesign" id='editBtn'>Edit</button>
                     </p>
@@ -71,7 +71,7 @@ export default function Profile() {
                     </div>
             }
             {/*<input value={nickname} onChange={handleNicknameChange} placeholder="nickname" /> */}
-            <p id='special'>Email: {email}</p>
+            <p>Email: {email}</p>
             <br />
             <p>Enter a profile pic: </p>
             <div className="input-group mb-3">

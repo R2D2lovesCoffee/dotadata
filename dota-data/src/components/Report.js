@@ -26,7 +26,7 @@ export default function Report(props) {
 
             return (
                 <div className="container" id='special'>
-                    <h1>SOLO STATUS</h1>
+                    <h1 id='special'>SOLO STATUS</h1>
                     <p>Numeric score: {props.data.score} </p>
                     <p>
                         Score: {contor}/{props.data.questions.length}
