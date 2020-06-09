@@ -119,8 +119,9 @@ li{
 }
 
 #saveBtn{
-    margin-left: 2em;
-    margin-bottom: 2em;
+    display: block;
+    margin:0 auto;
+    font-size: 25px;
 }
 
 #left{
@@ -246,4 +247,5 @@ input[type=text], select, textarea {
     margin-left: 10px;
     padding-top: 0;
     padding-bottom: 0;
+    font-size: 25px;
   }
