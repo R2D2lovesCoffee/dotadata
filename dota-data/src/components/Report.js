@@ -9,19 +9,25 @@ export default function Report(props) {
         history.push('/home');
     }
 
+    let contor = 0;
+    let percentage = 0;
+
+    let situation = '';
+    let personalRankedContor = 0;
+    let personalRankedPercentage = 0;
+    let opponentRankedContor = 0;
+    let opponentRankedPercentage = 0;
+
     if (props.data === 0 || props.data === null || props.data === 'undefined' || props.dataRanked === 0 || props.dataRanked === null || props.dataRanked === 'undefined') {
         return null;
     } else {
         if (props.type === 'solo') {
-            var contor = 0;
-            var percentage = 0;
 
-            for (var i = 0; i < props.data.questions.length; i++) {
+            for (let i = 0; i < props.data.questions.length; i++) {
                 if (props.data.answers[i] === props.data.questions[i].correct) {
                     contor++;
                 }
             }
-
             percentage = (contor / props.data.questions.length) * 100 + '%';
 
             return (
@@ -32,27 +38,21 @@ export default function Report(props) {
                         Score: {contor}/{props.data.questions.length}
                     </p>
                     <p>Percentage: {percentage}</p>
-                    <button className="buttonDesign" onClick={sendToHP}>Go to homepage</button>
+                    <button className="buttonDesign" id='hpBtn' onClick={sendToHP}>Go to homepage</button>
                 </div>
             )
         } else if (props.type === 'ranked') {
 
-            var situation = 0;
-            var personalRankedContor = 0;
-            var personalRankedPercentage = 0;
-            var opponentRankedContor = 0;
-            var opponentRankedPercentage = 0;
-
-            for (var z = 0; z < props.dataRanked.questions.length; z++) {
-                if (props.dataRanked.myAnswers[z] === props.dataRanked.questions[z].correct) {
+            for (let i = 0; i < props.dataRanked.questions.length; i++) {
+                if (props.dataRanked.myAnswers[i] === props.dataRanked.questions[i].correct) {
                     personalRankedContor++;
                 }
             }
 
             personalRankedPercentage = (personalRankedContor / props.dataRanked.myAnswers.length) * 100 + '%';
 
-            for (var j = 0; j < props.dataRanked.questions.length; j++) {
-                if (props.dataRanked.opponentAnswers[j] === props.dataRanked.questions[j].correct) {
+            for (let i = 0; i < props.dataRanked.questions.length; i++) {
+                if (props.dataRanked.opponentAnswers[i] === props.dataRanked.questions[i].correct) {
                     opponentRankedContor++;
                 }
             }
@@ -79,7 +79,6 @@ export default function Report(props) {
                 specific = '#d9d9d9';
             }
 
-
             return (
                 <div className="container" id='special'>
                     <h1>RANKED STATUS</h1>
@@ -92,7 +91,7 @@ export default function Report(props) {
                     </p>
                     <p>Opponent's score: {opponentRankedContor}/{props.dataRanked.opponentAnswers.length} </p>
                     <p>Opponent's percentage: {opponentRankedPercentage} </p>
-                    <button className="buttonDesign" onClick={sendToHP}>Go to homepage</button>
+                    <button className="buttonDesign" id='hpBtn' onClick={sendToHP}>Go to homepage</button>
                 </div>
             )
         }

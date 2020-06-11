@@ -23,11 +23,11 @@ module.exports = class Client {
         findOpponentIntervalTime: 2000,
         ranked: {
             timePerQuestion: 10000,
-            noQuestions: 5
+            noQuestions: 8
         },
         solo: {
             timePerQuestion: 5000,
-            noQuestions: 5
+            noQuestions: 8
         }
     }
 

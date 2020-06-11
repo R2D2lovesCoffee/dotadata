@@ -28,6 +28,13 @@ module.exports = class Game {
             this.socket2.user.ranked_mmr += mmr;
             this.socket1.user.ranked_mmr -= mmr;
         }
+        console.log(this.socket1.user.ranked_mmr);
+        if (this.socket1.user.ranked_mmr < 0) {
+            this.socket1.user.ranked_mmr = 0;
+        }
+        if (this.socket2.user.ranked_mmr < 0) {
+            this.socket2.user.ranked_mmr = 0;
+        }
         User.update({ ranked_mmr: this.socket1.user.ranked_mmr }, { where: { id: this.socket1.user.user_id } });
         User.update({ ranked_mmr: this.socket2.user.ranked_mmr }, { where: { id: this.socket2.user.user_id } });
         this.socket1.user.score = null;
