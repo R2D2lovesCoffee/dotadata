@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { socket, connect } from '../../socket';
+import { socket } from '../../socket';
 import Game from '../Game';
 import Timer from '../Timer';
 import Report from '../Report';

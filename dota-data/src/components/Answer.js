@@ -32,7 +32,7 @@ export default function Answer(props) {
             )
         case 'img':
             return (<div className="clickable container" id='answerDesign' onClick={props.onAnswerClick.bind(this, props.index)}>
-                <li><img className='smallerImg' src={content} /></li>
+                <li><img className='smallerImg' alt='alternative' src={content} /></li>
             </div>)
         case 'text':
             return (<div className="clickable container" id='answerDesign' onClick={props.onAnswerClick.bind(this, props.index)} >

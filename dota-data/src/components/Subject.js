@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../components/views/Home.css';
 
 export default function Subject(props) {
@@ -22,7 +22,7 @@ export default function Subject(props) {
             )
         case 'img':
             return (<div className="container" id='special'>
-                <img className='centerImage' src={props.content} />
+                <img className='centerImage' alt='alternative' src={props.content} />
             </div>)
         case 'text':
             return (<div className="container" id='special'>

@@ -54,6 +54,8 @@ export default function Report(props) {
                 case 8:
                     soloCustomizeMessage = 'Nice, master! The only one surprised by this is you.';
                     break;
+                default:
+                    break;
             }
 
             percentage = (contor / props.data.questions.length) * 100;
@@ -99,6 +101,8 @@ export default function Report(props) {
                     break;
                 case 8:
                     rankedPersonalCustomizeMessage = 'Nice, master! The only one surprised by this is you.';
+                    break;
+                default:
                     break;
             }
 
