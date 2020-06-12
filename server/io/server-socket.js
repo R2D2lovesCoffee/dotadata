@@ -25,7 +25,7 @@ module.exports = class ServerSocket {
 
     generateQuestion() {
         return new Promise((resolve, reject) => {
-            const random = Math.floor(Math.random() * 3) + 1;
+            const random = Math.floor(Math.random() * 7) + 1;
             const child = fork(`./scripts/questions/type${random}`);
             child.on('message', ({ question, correct }) => {
                 child.kill();

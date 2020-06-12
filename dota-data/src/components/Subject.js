@@ -32,7 +32,7 @@ export default function Subject(props) {
             return (<div></div>)
         default:
             return (
-                <div className="container">subject type not recognized</div>
+                <div className="container">Subject type not recognized</div>
             )
     }
 }
