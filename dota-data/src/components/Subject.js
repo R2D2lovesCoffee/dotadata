@@ -25,7 +25,7 @@ export default function Subject(props) {
                 <img className='centerImage' alt='alternative' src={props.content} />
             </div>)
         case 'text':
-            return (<div className="container" id='special'>
+            return (<div className="container" id='special' id='textAns'>
                 {props.content}
             </div>)
         case 'none':

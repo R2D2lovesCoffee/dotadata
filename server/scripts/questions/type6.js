@@ -22,7 +22,7 @@ Hero.findAll({
     limit: 2
 }).then(heroes => heroes.map(hero => hero.dataValues))
     .then(heroes => {
-        const heroRange = ['melee', 'ranged'];
+        const heroRange = ['Melee', 'Ranged'];
         question.setAnswers(heroRange);
         if (heroRange !== heroes.map(hero => hero.range)) {
             heroes.map(hero => hero.range).splice(0, heroes.map(hero => hero.range).length, ...heroRange);

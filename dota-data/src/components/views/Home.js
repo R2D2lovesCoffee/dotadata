@@ -10,7 +10,7 @@ function Home() {
                     <div className="card card-inverse card-primary text-center card-play" id="card-solo-game">
                         <img className="card-img-top" src={require('../../assets/images/2.jpeg')} alt='' />
                         <div className="card-block">
-                            <p className="clickable">
+                            <p className="clickable" id='homeLink'>
                                 <Link to="/solo-game">Play Solo</Link>
                             </p>
                         </div>
@@ -21,7 +21,7 @@ function Home() {
                     <div className="card card-inverse card-primary text-center card-play" id="card-ranked-game">
                         <img className="card-img-top" src={require('../../assets/images/1.jpeg')} alt='' />
                         <div className="card-block">
-                            <p className="clickable">
+                            <p className="clickable" id='homeLink'>
                                 <Link to="/ranked-game">Play Ranked</Link>
                             </p>
                         </div>
