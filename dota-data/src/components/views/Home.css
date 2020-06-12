@@ -290,3 +290,48 @@ input[type=text], select, textarea {
       margin-top:20px;
       margin-bottom:20px;
   }
+
+  @media (max-width: 990px){
+      label{
+          font-size: 22px;
+      }
+  }
+
+  @media (max-width: 766px){
+      label{
+          font-size: 16px;
+      }
+      #heading{
+          font-size:45px;
+
+      }
+      div{
+          font-size: 20px;
+      }
+      #signupBtn{
+          font-size: 12px;
+      }
+  }
+
+  @media (max-width: 366px){
+      #heading{
+          font-size: 30px;
+      }
+  }
+
+  @media (max-width: 767px){
+      a{
+          font-size: 30px;
+      }
+  }
+
+  #msg{
+      margin-left: 15px;
+  }
+
+  @media (max-width: 991px){
+      #msg{
+          display:block;
+          margin-left: 6%
+      }
+  }
