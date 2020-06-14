@@ -152,6 +152,7 @@ export default function Report(props) {
                     </p>
                     <p>Opponent's percentage: {opponentRankedPercentage}% </p>
                     <button className="buttonDesign" id='hpBtn' onClick={sendToHP}>Go to homepage</button>
+                    <button className="buttonDesign" id='hpBtn'>Rematch</button>
                 </div>
             )
         }
