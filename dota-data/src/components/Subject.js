@@ -4,12 +4,15 @@ import '../components/views/Home.css';
 export default function Subject(props) {
     const audio = useRef(null);
     useEffect(() => {
-        if (props.type === 'audio' && props.content) {
+        if (audio.current) {
             audio.current.pause();
+        }
+        if (props.type === 'audio' && props.content) {
             audio.current.load();
             audio.current.play();
         }
     }, [props.type, props.content])
+
     switch (props.type) {
         case 'audio':
             return (

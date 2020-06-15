@@ -10,13 +10,6 @@ export default function Answer(props) {
     }, [props.type]);
     useEffect(() => {
         setContent(props.content);
-        if (content) {
-            if (type === 'audio') {
-                ref.pause();
-                ref.load();
-                ref.play();
-            }
-        }
 
     }, [props.content]);
 
