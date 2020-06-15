@@ -70,7 +70,6 @@ export default function Profile() {
                         <input value={nickname} onChange={handleNicknameChange} />
                     </div>
             }
-            {/*<input value={nickname} onChange={handleNicknameChange} placeholder="nickname" /> */}
             <p>Email: {email}</p>
             <br />
             <p>Enter a profile pic: </p>
@@ -82,8 +81,7 @@ export default function Profile() {
             </div>
             <br />
             <button onClick={save} className="buttonDesign" id="saveBtn" >Save</button>
-            <img className='pictureProfile' src='' alt='' />
-            <img className="pictureProfile img-thumbnail" src={`${config.serverURL}/avatar_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+            <img src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
         </div>
     )
 }

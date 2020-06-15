@@ -10,6 +10,6 @@ app.use(require('cors')());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use('/api', router);
-app.use('/avatar_pics', express.static(__dirname + '/database/profile_pics'));
+app.use('/profile_pics', express.static(__dirname + '/database/profile_pics'));
 
 module.exports = app;
