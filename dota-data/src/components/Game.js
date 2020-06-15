@@ -15,12 +15,6 @@ function Game({ type }) {
         socket.emit('answer', index);
     }
 
-    useEffect(() => () => {
-        socket.off('time');
-        socket.off('question');
-        socket.off('score;');
-    }, [])
-
     useEffect(() => {
         socket.emit(type === 'solo' ? 'startSoloGame' : 'startRankedGame');
         socket.on('time', time => {
@@ -36,7 +30,12 @@ function Game({ type }) {
         })
 
         socket.on('score', score => setMyScore(score));
-    }, [])
+        return () => {
+            socket.off('time');
+            socket.off('question');
+            socket.off('score');
+        }
+    }, [type])
 
     return (
         <div className='container'>

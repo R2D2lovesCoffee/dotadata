@@ -73,6 +73,9 @@ function Register() {
                     <button id="signupBtn" onClick={() => history.push('/login')}>SIGN IN</button>
                     </div>
                 </div>
+                <div>
+                    <p>{message}</p>
+                </div>
             </div>
         </div>
     )

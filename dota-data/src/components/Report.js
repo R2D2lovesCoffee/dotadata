@@ -63,7 +63,7 @@ export default function Report(props) {
             return (
                 <div className="container" id='special'>
                     <h1 id='special'>SOLO STATUS</h1>
-                    <p>Numeric score: {props.data.score} </p>
+                    <p>Numeric score: {props.data.score.toFixed(2)} </p>
                     <p>
                         Score: {contor}/{props.data.questions.length}
                         <span id='msg'>{soloCustomizeMessage}</span>

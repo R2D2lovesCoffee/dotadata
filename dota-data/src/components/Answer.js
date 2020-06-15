@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 export default function Answer(props) {
     const [content, setContent] = useState('');
     const [type, setType] = useState('');
-    const ref = document.getElementById('audio');
 
     useEffect(() => {
         setType(props.type);

@@ -1,26 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import '../components/views/Home.css';
+import ReactAudioPlayer from 'react-audio-player';
 
 export default function Subject(props) {
-    const audio = useRef(null);
-    useEffect(() => {
-        if (audio.current) {
-            audio.current.pause();
-        }
-        if (props.type === 'audio' && props.content) {
-            audio.current.load();
-            audio.current.play();
-        }
-    }, [props.type, props.content])
 
     switch (props.type) {
         case 'audio':
             return (
                 <div className="container" id='special'>
-                    <audio controls className="container embed-responsive-item" ref={audio}>
-                        <source src={props.content} type="audio/mpeg" />
-                        Your browser does not support the audio element.
-                    </audio>
+                    <ReactAudioPlayer className="container embed-responsive-item" controls src={props.content} autoPlay={true} />
                 </div>
             )
         case 'img':
