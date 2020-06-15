@@ -56,7 +56,10 @@ body {
   height:auto;
   border: 2px solid black;
   border-radius: 50%;
-  display:none;
+  width: 250px;
+  height: 250px;
+  display: block;
+  margin: 0 auto;
 }
 
 h1{

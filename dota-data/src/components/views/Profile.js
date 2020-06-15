@@ -5,13 +5,13 @@ import http from '../../http';
 import config from '../../config';
 import './Home.css';
 export default function Profile() {
-
+    let file = {};
     const [email, setEmail] = useState('');
     const [nickname, setNickname] = useState('');
     const [soloMmr, setSoloMmr] = useState(0);
     const [rankedMmr, setRankedMmr] = useState(0);
-    const [file, setFile] = useState(null);
     const [edit, setEdit] = useState(false);
+
     useEffect(() => {
         http.get('/profile')
             .then(data => {
@@ -33,12 +33,14 @@ export default function Profile() {
         formData.append('nickname', nickname);
         http.post('/profile', formData)
             .then(resp => console.log(resp));
+
+        //window.location.href = window.location.pathname + window.location.search + window.location.hash;
+        window.location.reload(false);
     }
 
     function ImageUpload(event) {
-        setFile(event.target.files[0]);
-        const img = document.querySelector('.pictureProfile');
-        const inp = document.querySelectorAll('input')[1];
+        file = event.target.files[0];
+        const img = document.querySelector('img');
         if (file) {
             if (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg') {
                 const reader = new FileReader();
@@ -46,11 +48,6 @@ export default function Profile() {
                     img.setAttribute('src', reader.result);
                 })
                 reader.readAsDataURL(file);
-                img.style.display = 'block';
-            } else {
-                img.setAttribute('src', null);
-                img.style.display = 'none';
-                inp.value = '';
             }
         }
     }
@@ -79,9 +76,13 @@ export default function Profile() {
                     <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
                 </div>
             </div>
+            <div>
+                <img className='pictureProfile' src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+            </div>
             <br />
-            <button onClick={save} className="buttonDesign" id="saveBtn" >Save</button>
-            <img src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+            <button onClick={save} className="buttonDesign" id="saveBtn" type='submit' >
+                Save
+            </button>
         </div>
     )
 }
