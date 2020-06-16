@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js host=http://localhost:5000",
-    "prod": "nodemon index.js host=https://r2d2lovescoffee.com"
+    "dev": "node index.js host=http://localhost:5000",
+    "prod": "node index.js host=https://r2d2lovescoffee.com"
   },
   "keywords": [],
   "author": "",
