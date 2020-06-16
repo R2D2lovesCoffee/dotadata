@@ -11,7 +11,7 @@ module.exports = class Client {
         this.gapIncreaseInterval = null;
         this.currentQuestion = null;
         this.score = null;
-        this.gap = 30;
+        this.gap = 60;
         this.answers = null;
         this.opponent = null;
         this.currentlyPlaying = null;
@@ -19,7 +19,7 @@ module.exports = class Client {
     };
     static config = {
         gapIncreaseTime: 4000,
-        gapValueToIncrease: 30,
+        gapValueToIncrease: 60,
         findOpponentIntervalTime: 2000,
         ranked: {
             timePerQuestion: 10000,
@@ -45,7 +45,7 @@ module.exports = class Client {
         this.questions = null;
         this.score = null;
         this.currentQuestion = null;
-        this.gap = 30;
+        this.gap = 60;
         this.timeInterval = null;
         this.findOpponentInterval = null;
         this.gapIncreaseInterval = null;

@@ -13,6 +13,7 @@ export default function Profile() {
     const [edit, setEdit] = useState(false);
     const [imageSrc, setImageSrc] = useState('');
     const [message, setMessage] = useState('');
+    // const [messageTimeout, setMessageTimeout] = useState(null);
 
     useEffect(() => {
         http.loadImage(localStorage.getItem('user_id')).then(src => {
@@ -25,6 +26,9 @@ export default function Profile() {
                 setSoloMmr(data.solo_mmr);
                 setRankedMmr(data.ranked_mmr);
             })
+        // return () => {
+        //     clearTimeout(messageTimeout);
+        // }
     }, [])
 
     const handleNicknameChange = (event) => {
@@ -39,9 +43,9 @@ export default function Profile() {
         http.post('/profile', formData)
             .then(() => {
                 setMessage('Updated successfully!');
-                setTimeout(() => {
-                    setMessage('');
-                }, 3000);
+                // setMessageTimeout(setTimeout(() => {
+                //     setMessage('');
+                // }, 3000));
                 http.loadImage(localStorage.getItem('user_id')).then(src => setImageSrc(src));
             });
     }

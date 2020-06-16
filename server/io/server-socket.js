@@ -70,8 +70,10 @@ module.exports = class ServerSocket {
                         const room = this.io.of(`game_${this.index}`);
                         this.index++;
                         room.game = new Game(socket, this.io.sockets.connected[opponent.socketID], room.name.split('/')[1]);
-                        this.io.to(socket.id).emit('opponent', opponent.nickname);
-                        this.io.to(opponent.socketID).emit('opponent', socket.user.nickname);
+                        console.log(opponent.user_id);
+                        console.log(socket.user.user_id);
+                        this.io.to(socket.id).emit('opponent', { id: opponent.user_id, nickname: opponent.nickname });
+                        this.io.to(opponent.socketID).emit('opponent', { id: socket.user.user_id, nickname: socket.user.nickname });
                     }
                 }, Client.config.findOpponentIntervalTime);
                 socket.user.gapIncreaseInterval = setInterval(() => {
