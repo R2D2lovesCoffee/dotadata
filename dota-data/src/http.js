@@ -16,4 +16,18 @@ const http = {};
     }
 })
 
+http.loadImage = (userID) => {
+    return new Promise((resolve, reject) => {
+        fetch(`${config.serverURL}/api/picture/${userID}`, { headers: config.getHeaders() })
+            .then(resp => resp.blob())
+            .then(blob => {
+                const fileReaderInstance = new FileReader();
+                fileReaderInstance.readAsDataURL(blob);
+                fileReaderInstance.onload = () => {
+                    resolve(fileReaderInstance.result);
+                }
+            }).catch(err => reject(err))
+    })
+}
+
 export default http;

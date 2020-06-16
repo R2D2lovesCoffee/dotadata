@@ -19,10 +19,6 @@
     background-color:#4D4D4D;
 }
 
-.card p:hover{
-    opacity: 50%;
-}
-
 .card-play p {
     font-size: 2rem;
 }

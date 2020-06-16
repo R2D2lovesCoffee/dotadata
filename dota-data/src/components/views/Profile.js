@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import '../../App.css';
 import http from '../../http';
-import config from '../../config';
 import './Home.css';
+
 export default function Profile() {
     let file = {};
     const [email, setEmail] = useState('');
@@ -12,9 +12,12 @@ export default function Profile() {
     const [rankedMmr, setRankedMmr] = useState(0);
     const [edit, setEdit] = useState(false);
     const [imageSrc, setImageSrc] = useState('');
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
-        setImageSrc(`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`);
+        http.loadImage(localStorage.getItem('user_id')).then(src => {
+            setImageSrc(src);
+        });
         http.get('/profile')
             .then(data => {
                 setEmail(data.email);
@@ -34,7 +37,13 @@ export default function Profile() {
         formData.append('image', file);
         formData.append('nickname', nickname);
         http.post('/profile', formData)
-            .then(() => setImageSrc(`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`));
+            .then(() => {
+                setMessage('Updated successfully!');
+                setTimeout(() => {
+                    setMessage('');
+                }, 3000);
+                http.loadImage(localStorage.getItem('user_id')).then(src => setImageSrc(src));
+            });
     }
 
     function ImageUpload(event) {
@@ -82,6 +91,7 @@ export default function Profile() {
             <button onClick={save} className="buttonDesign" id="saveBtn" type="submit" >
                 Save
             </button>
+            <p>{message}</p>
         </div>
     )
 }

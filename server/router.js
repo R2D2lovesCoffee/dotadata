@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const { SECRET, HOST } = require('./config');
 const nodemailer = require('nodemailer');
 const auth = require('./auth');
+const fs = require('fs');
+const path = require('path');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -119,6 +121,17 @@ router.post('/profile', auth.httpAuth, async (req, res) => {
             console.log(err);
             res.status(500).send();
         })
+})
+
+router.get('/picture/:user_id', auth.httpAuth, (req, res) => {
+    const { user_id } = req.params;
+    fs.access(path.join(__dirname, `./database/profile_pics/avatar_${user_id}.png`), (err) => {
+        if (!err) {
+            res.sendFile(path.join(__dirname, `./database/profile_pics/avatar_${user_id}.png`));
+        } else {
+            res.sendFile(path.join(__dirname, './database/profile_pics/default.png'));
+        }
+    })
 })
 
 router.get('/profile', auth.httpAuth, async (req, res) => {
