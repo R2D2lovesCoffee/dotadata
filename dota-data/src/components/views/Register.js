@@ -29,15 +29,17 @@ function Register() {
         if (email.indexOf('@') === -1) {
             setEmailMessage('Email is not correct');
             console.log(emailMessage);
+            return;
         }
         if (password.length <= 8) {
             setPasswordMessage('Password must have at least 8 characters');
             console.log(passwordMessage)
+            return;
         }
         if (password === confirmPassword) {
             http.post('/register', { email, password })
                 .then(resp => {
-                    //history.push('/login');
+                    history.push('/login');
                 }).catch(error => {
                     console.log(error);
                     if (error.message) {
@@ -56,7 +58,7 @@ function Register() {
                         <label>Email</label>
                     </div>
                     <div className="col-75">
-                        <input type='text' value={email} required onChange={handleEmailChange} />
+                        <input type="text" value={email} required onChange={handleEmailChange} />
                     </div>
                 </div>
                 <div className="row">

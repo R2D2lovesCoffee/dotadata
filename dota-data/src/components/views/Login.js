@@ -42,7 +42,7 @@ function Login() {
                         <label >Email</label>
                     </div>
                     <div className="col-75">
-                        <input type='text' value={email} onChange={handleEmailChange} />
+                        <input type="text" value={email} onChange={handleEmailChange} />
                     </div>
                 </div>
                 <div className="row">
@@ -53,8 +53,8 @@ function Login() {
                         <input value={password} onChange={handlePasswordChange} type="password" />
                     </div>
                 </div>
-                <div className='row container'>
-                    <div id='centerText'>
+                <div className="row container">
+                    <div id="centerText">
                         {message}
                     </div>
                 </div>

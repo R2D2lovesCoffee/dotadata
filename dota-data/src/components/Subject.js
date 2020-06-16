@@ -7,16 +7,16 @@ export default function Subject(props) {
     switch (props.type) {
         case 'audio':
             return (
-                <div className="container" id='special'>
+                <div className="container" id="special">
                     <ReactAudioPlayer className="container embed-responsive-item" controls src={props.content} autoPlay={true} />
                 </div>
             )
         case 'img':
-            return (<div className="container" id='special'>
-                <img className='centerImage' alt='alternative' src={props.content} />
+            return (<div className="container" id="special">
+                <img className="centerImage" alt="alternative" src={props.content} />
             </div>)
         case 'text':
-            return (<div className="container" id='special' id='textAns'>
+            return (<div className="container" id="specialAns">
                 {props.content}
             </div>)
         case 'none':

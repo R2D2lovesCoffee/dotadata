@@ -30,7 +30,7 @@ export default function SoloGame() {
         }
         return (
             <div className="wrap">
-                <button className='soloGame' onClick={handleStart}>Start</button>
+                <button className="soloGame" onClick={handleStart}>Start</button>
             </div>
         )
     } else {

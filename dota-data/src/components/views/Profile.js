@@ -53,14 +53,14 @@ export default function Profile() {
     }
     return (
         <div className="container" id="special">
-            <h1 id='special'>Profile</h1>
+            <h1 id="special">Profile</h1>
             <p>Solo Rating: {soloMmr}</p>
             <p>Multiplayer Rating: {rankedMmr}</p>
             {
                 edit === false ? <div>
                     <p>Nickname:
                     <span> {nickname}</span>
-                        <button onClick={() => setEdit(true)} className="buttonDesign" id='editBtn'>Edit</button>
+                        <button onClick={() => setEdit(true)} className="buttonDesign" id="editBtn">Edit</button>
                     </p>
                 </div> :
                     <div>
@@ -77,10 +77,10 @@ export default function Profile() {
                 </div>
             </div>
             <div>
-                <img className='pictureProfile' src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+                <img className="pictureProfile" src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt="" />
             </div>
             <br />
-            <button onClick={save} className="buttonDesign" id="saveBtn" type='submit' >
+            <button onClick={save} className="buttonDesign" id="saveBtn" type="submit" >
                 Save
             </button>
         </div>

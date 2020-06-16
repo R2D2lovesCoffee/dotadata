@@ -48,18 +48,18 @@ function RankedGame() {
 
     if (!finished) {
         return start === false ?
-            <div className='wrapRank'>
+            <div className="wrapRank">
                 <button className="buttonDesign" onClick={handleFindOpponent}>Ready</button>
-                <button className="buttonDesign" id='spacingStop'>Stop Seaching</button>
+                <button className="buttonDesign" id="spacingStop">Stop Seaching</button>
                 <p>{message}</p>
                 <span className="border border-secondary">
                     Time in queue: {showTimer ? <Timer /> : 0}
                 </span>
             </div> :
             <>
-                <p className='container' id='special'>Opponent: <span>{opponent}</span></p>
+                <p className="container" id="special">Opponent: <span>{opponent}</span></p>
                 <Game type={'ranked'} />
-                <p className="container" id='special'>Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
+                <p className="container" id="special">Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
             </>
     } else {
         return <Report dataRanked={report} type={type} />

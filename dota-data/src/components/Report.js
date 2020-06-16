@@ -61,15 +61,15 @@ export default function Report(props) {
             percentage = (contor / props.data.questions.length) * 100;
 
             return (
-                <div className="container" id='special'>
-                    <h1 id='special'>SOLO STATUS</h1>
+                <div className="container" id="special">
+                    <h1 id="special">SOLO STATUS</h1>
                     <p>Numeric score: {props.data.score.toFixed(2)} </p>
                     <p>
                         Score: {contor}/{props.data.questions.length}
-                        <span id='msg'>{soloCustomizeMessage}</span>
+                        <span id="msg">{soloCustomizeMessage}</span>
                     </p>
                     <p>Percentage: {percentage}%</p>
-                    <button className="buttonDesign" id='hpBtn' onClick={sendToHP}>Go to homepage</button>
+                    <button className="buttonDesign" id="hpBtn" onClick={sendToHP}>Go to homepage</button>
                 </div>
             )
         } else if (props.type === 'ranked') {
@@ -137,13 +137,13 @@ export default function Report(props) {
             }
 
             return (
-                <div className="container" id='special'>
+                <div className="container" id="special">
                     <h1>RANKED STATUS</h1>
                     <h1 style={{ color: specific }}> {situation} </h1>
                     <p>My numeric score: {props.dataRanked.myScore} </p>
                     <p>Opponent's numeric score: {props.dataRanked.opponentScore}</p>
                     <p>My score: {personalRankedContor}/{props.dataRanked.myAnswers.length}
-                        <span id='msg'> {rankedPersonalCustomizeMessage} </span>
+                        <span id="msg"> {rankedPersonalCustomizeMessage} </span>
                     </p>
                     <p>
                         My percentage: {personalRankedPercentage}%
@@ -151,8 +151,8 @@ export default function Report(props) {
                     <p>Opponent's score: {opponentRankedContor}/{props.dataRanked.opponentAnswers.length}
                     </p>
                     <p>Opponent's percentage: {opponentRankedPercentage}% </p>
-                    <button className="buttonDesign" id='hpBtn' onClick={sendToHP}>Go to homepage</button>
-                    <button className="buttonDesign" id='hpBtn'>Rematch</button>
+                    <button className="buttonDesign" id="hpBtn" onClick={sendToHP}>Go to homepage</button>
+                    <button className="buttonDesign" id="hpBtn">Rematch</button>
                 </div>
             )
         }

@@ -343,7 +343,7 @@ input[type=text], select, textarea {
       }
   }
 
-  #textAns{
+  #specialAns{
     margin-top: 15px;
     border:2px solid gray;
     font-size: 16px;
