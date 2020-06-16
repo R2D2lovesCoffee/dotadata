@@ -69,7 +69,7 @@ module.exports = class ServerSocket {
                         this.io.sockets.connected[opponent.socketID].join(`game_${this.index}`);
                         const room = this.io.of(`game_${this.index}`);
                         this.index++;
-                        room.game = new Game(socket, this.io.sockets.connected[opponent.socketID]);
+                        room.game = new Game(socket, this.io.sockets.connected[opponent.socketID], room.name.split('/')[1]);
                         this.io.to(socket.id).emit('opponent', opponent.nickname);
                         this.io.to(opponent.socketID).emit('opponent', socket.user.nickname);
                     }
@@ -174,50 +174,54 @@ module.exports = class ServerSocket {
                 if (socket.user.currentlyPlaying === 'ranked') {
                     if (!socket.user.answered) {
                         const { game } = this.io.of(Object.keys(socket.rooms)[1]);
-                        socket.user.answers.push(index);
-                        socket.user.answered = true;
-                        const opponentSocket = game.socket1.id === socket.id ? game.socket2 : game.socket1;
-                        // opponentSocket.emit('opponentAnswer', index);
-                        if (index === game.questions[game.currentQuestion].correct) {
-                            const time = new Date() - socket.user.time;
-                            socket.user.score += this.calculateScore(time);
-                            socket.emit('score', socket.user.score);
-                            opponentSocket.emit('opponentScore', socket.user.score);
-                        }
-                        if (game.bothAnswered()) {
-                            clearInterval(game.timeInterval);
-                            if (game.currentQuestion + 1 !== game.noQuestions) {
-                                game.emitToBoth('question', game.questions[game.currentQuestion + 1].question);
-                                game.socket1.user.answered = false;
-                                game.socket2.user.answered = false;
-                                game.currentQuestion++;
-                            } else {
-                                game.end();
+                        if (game.questions[game.currentQuestion]) {
+                            socket.user.answers.push(index);
+                            socket.user.answered = true;
+                            const opponentSocket = game.socket1.id === socket.id ? game.socket2 : game.socket1;
+                            // opponentSocket.emit('opponentAnswer', index);
+                            if (index === game.questions[game.currentQuestion].correct) {
+                                const time = new Date() - socket.user.time;
+                                socket.user.score += this.calculateScore(time);
+                                socket.emit('score', socket.user.score);
+                                opponentSocket.emit('opponentScore', socket.user.score);
+                            }
+                            if (game.bothAnswered()) {
+                                clearInterval(game.timeInterval);
+                                if (game.currentQuestion + 1 !== game.noQuestions) {
+                                    game.emitToBoth('question', game.questions[game.currentQuestion + 1].question);
+                                    game.socket1.user.answered = false;
+                                    game.socket2.user.answered = false;
+                                    game.currentQuestion++;
+                                } else {
+                                    game.end();
+                                }
                             }
                         }
                     }
                 } else if (socket.user.currentlyPlaying === 'solo') {
-                    clearInterval(socket.user.timeInterval);
-                    const time = new Date() - socket.user.time;
-                    socket.user.answers.push(index);
-                    if (index === socket.user.questions[socket.user.currentQuestion].correct) {
-                        socket.user.score += this.calculateScore(time);
-                        socket.emit('score', socket.user.score);
-                    }
-                    if (socket.user.currentQuestion + 1 !== Client.config.solo.noQuestions) {
-                        socket.emit('question', socket.user.questions[socket.user.currentQuestion + 1].question)
-                        socket.user.currentQuestion++;
-                    } else {
-                        socket.emit('gameFinished', { questions: socket.user.questions, answers: socket.user.answers, score: socket.user.score });
-                        let noCorrect = 0;
-                        for (let i = 0; i < socket.user.questions.length; i++) {
-                            if (socket.user.questions[i].correct === socket.user.answers[i]) {
-                                noCorrect++;
-                            }
+                    if (socket.user.questions[socket.user.currentQuestion]) {
+                        clearInterval(socket.user.timeInterval);
+                        const time = new Date() - socket.user.time;
+                        socket.user.answers.push(index);
+                        if (index === socket.user.questions[socket.user.currentQuestion].correct) {
+                            socket.user.score += this.calculateScore(time);
+                            socket.emit('score', socket.user.score);
                         }
-                        socket.user.solo_mmr = parseInt(socket.user.solo_mmr + 25 / Client.config.solo.noQuestions * noCorrect)
-                        socket.user.reset();
-                        User.update({ solo_mmr: socket.user.solo_mmr }, { where: { id: socket.user.user_id } })
+                        if (socket.user.currentQuestion + 1 !== Client.config.solo.noQuestions) {
+                            socket.emit('question', socket.user.questions[socket.user.currentQuestion + 1].question);
+                            socket.user.currentQuestion++;
+                        } else {
+                            socket.emit('gameFinished', { questions: socket.user.questions, answers: socket.user.answers, score: socket.user.score });
+                            let noCorrect = 0;
+                            for (let i = 0; i < socket.user.questions.length; i++) {
+                                if (socket.user.questions[i].correct === socket.user.answers[i]) {
+                                    noCorrect++;
+                                }
+                            }
+                            socket.user.solo_mmr = parseInt(socket.user.solo_mmr + 25 / Client.config.solo.noQuestions * noCorrect)
+                            socket.user.reset();
+                            User.update({ solo_mmr: socket.user.solo_mmr }, { where: { id: socket.user.user_id } })
+                        }
                     }
                 }
             })

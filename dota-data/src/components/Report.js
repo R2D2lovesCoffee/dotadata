@@ -140,7 +140,7 @@ export default function Report(props) {
                 <div className="container" id="special">
                     <h1>RANKED STATUS</h1>
                     <h1 style={{ color: specific }}> {situation} </h1>
-                    <p>My numeric score: {props.dataRanked.myScore} </p>
+                    <p>My numeric score: {props.dataRanked.myScore.toFixed(2)} </p>
                     <p>Opponent's numeric score: {props.dataRanked.opponentScore}</p>
                     <p>My score: {personalRankedContor}/{props.dataRanked.myAnswers.length}
                         <span id="msg"> {rankedPersonalCustomizeMessage} </span>

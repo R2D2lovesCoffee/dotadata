@@ -14,6 +14,7 @@ function RankedGame() {
     const [finished, setFinished] = useState(false);
     const [report, setReport] = useState(0);
     const [type, setType] = useState('ranked');
+    const [finding, setFinding] = useState(false);
 
     useEffect(() => () => {
         socket.off('opponent');
@@ -24,6 +25,7 @@ function RankedGame() {
     }, [])
 
     const handleFindOpponent = () => {
+        setFinding(true);
         setMessage('We\'re finding you an opponent...');
         socket.emit('findOpponent');
 
@@ -43,14 +45,20 @@ function RankedGame() {
             console.log(index);
         })
         socket.on('opponentScore', score => setOpponentScore(score));
+    }
 
+    const handleStopFinding = () => {
+        setFinding(false);
+        setShowTimer(false);
+        setMessage('');
+        socket.emit('stopFinding');
     }
 
     if (!finished) {
         return start === false ?
-            <div className="wrapRank">
-                <button className="buttonDesign" onClick={handleFindOpponent}>Ready</button>
-                <button className="buttonDesign" id="spacingStop">Stop Seaching</button>
+            <div className='wrapRank'>
+                <button className="buttonDesign" disabled={finding} onClick={handleFindOpponent}>Ready</button>
+                <button className="buttonDesign" disabled={!finding} onClick={handleStopFinding}>Stop Seaching</button>
                 <p>{message}</p>
                 <span className="border border-secondary">
                     Time in queue: {showTimer ? <Timer /> : 0}
