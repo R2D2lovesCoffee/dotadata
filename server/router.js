@@ -54,7 +54,7 @@ router.post('/register', async (req, res) => {
     try {
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
-            res.status(409).send();
+            res.status(409).send({ message: 'User already exists.' });
         } else {
             const salt = await bcrypt.genSalt(10);
             const password_hash = await bcrypt.hash(password, salt);
