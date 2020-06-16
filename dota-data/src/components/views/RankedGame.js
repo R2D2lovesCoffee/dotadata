@@ -8,7 +8,8 @@ import './Home.css';
 function RankedGame() {
     const [start, setStart] = useState(false);
     const [message, setMessage] = useState('');
-    const [opponent, setOpponent] = useState('');
+    const [opponentNickname, setOpponentNickname] = useState('');
+    const [opponentID, setOpponentID] = useState(-1);
     const [opponentScore, setOpponentScore] = useState(0);
     const [showTimer, setShowTimer] = useState(null);
     const [finished, setFinished] = useState(false);
@@ -18,7 +19,7 @@ function RankedGame() {
 
     useEffect(() => () => {
         socket.off('opponent');
-        socket.off('opponentAnswer');
+        // socket.off('opponentAnswer');
         socket.off('opponentScore');
         socket.off('gameFinished');
         socket.emit('stopFinding');
@@ -32,19 +33,21 @@ function RankedGame() {
         setShowTimer(true);
         socket.on('opponent', opponent => {
             setShowTimer(false);
-            setOpponent(opponent);
+            setOpponentNickname(opponent.nickname);
+            setOpponentID(opponent.id);
             setStart(true);
         });
         socket.on('gameFinished', report => {
             setFinished(true);
             setReport(report);
-            //console.log(report);
             setType(type);
         })
-        socket.on('opponentAnswer', index => {
-            console.log(index);
-        })
-        socket.on('opponentScore', score => setOpponentScore(score));
+        // socket.on('opponentAnswer', index => {
+        //     console.log(index);
+        // })
+        socket.on('opponentScore', score => {
+            setOpponentScore(score);
+        });
     }
 
     const handleStopFinding = () => {
@@ -65,7 +68,7 @@ function RankedGame() {
                 </span>
             </div> :
             <>
-                <p className="container" id="special">Opponent: <span>{opponent}</span></p>
+                <p className="container" id="special">Opponent: <span>{opponentNickname}</span></p>
                 <Game type={'ranked'} />
                 <p className="container" id="special">Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
             </>

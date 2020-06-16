@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import '../App.css';
 
 export default function Report(props) {
 
     const history = useHistory();
+    const [message, setMessage] = useState('');
     const sendToHP = () => {
         history.push('/home');
     }
@@ -136,23 +137,31 @@ export default function Report(props) {
                 specific = '#d9d9d9';
             }
 
+            const rematch = () => {
+                setMessage('We\'re working on this feature...');
+                setTimeout(() => {
+                    setMessage('');
+                }, 3000);
+            }
+
             return (
                 <div className="container" id="special">
                     <h1>RANKED STATUS</h1>
                     <h1 style={{ color: specific }}> {situation} </h1>
                     <p>My numeric score: {props.dataRanked.myScore.toFixed(2)} </p>
-                    <p>Opponent's numeric score: {props.dataRanked.opponentScore}</p>
+                    <p>Opponent's numeric score: {props.dataRanked.opponentScore.toFixed(2)}</p>
                     <p>My score: {personalRankedContor}/{props.dataRanked.myAnswers.length}
                         <span id="msg"> {rankedPersonalCustomizeMessage} </span>
                     </p>
                     <p>
-                        My percentage: {personalRankedPercentage}%
+                        My percentage: {personalRankedPercentage.toFixed(2)}%
                     </p>
                     <p>Opponent's score: {opponentRankedContor}/{props.dataRanked.opponentAnswers.length}
                     </p>
-                    <p>Opponent's percentage: {opponentRankedPercentage}% </p>
+                    <p>Opponent's percentage: {opponentRankedPercentage.toFixed(2)}% </p>
                     <button className="buttonDesign" id="hpBtn" onClick={sendToHP}>Go to homepage</button>
-                    <button className="buttonDesign" id="hpBtn">Rematch</button>
+                    <button className="buttonDesign" id="hpBtn" onClick={rematch}>Rematch</button>
+                    <p>{message}</p>
                 </div>
             )
         }
