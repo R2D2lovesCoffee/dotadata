@@ -2,12 +2,13 @@ const Client = require('./client');
 const User = require('../database/models/User');
 
 module.exports = class Game {
-    constructor(socket1, socket2) {
+    constructor(socket1, socket2, roomName) {
         this.socket1 = socket1;
         this.socket2 = socket2;
         this.noQuestions = Client.config.ranked.noQuestions;
         this.questions = [];
         this.currentQuestion = null;
+        this.roomName = roomName;
     }
 
     getMmr(score1, score2) {
@@ -28,7 +29,6 @@ module.exports = class Game {
             this.socket2.user.ranked_mmr += mmr;
             this.socket1.user.ranked_mmr -= mmr;
         }
-        console.log(this.socket1.user.ranked_mmr);
         if (this.socket1.user.ranked_mmr < 0) {
             this.socket1.user.ranked_mmr = 0;
         }
@@ -43,6 +43,8 @@ module.exports = class Game {
         this.socket2.user.answers = null;
         this.socket1.user.currenlyPlaying = null;
         this.socket2.user.currenlyPlaying = null;
+        this.socket1.leave(this.roomName);
+        this.socket2.leave(this.roomName);
     }
 
     emitToBoth(eventName, payload) {

@@ -11,8 +11,10 @@ export default function Profile() {
     const [soloMmr, setSoloMmr] = useState(0);
     const [rankedMmr, setRankedMmr] = useState(0);
     const [edit, setEdit] = useState(false);
+    const [imageSrc, setImageSrc] = useState('');
 
     useEffect(() => {
+        setImageSrc(`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`);
         http.get('/profile')
             .then(data => {
                 setEmail(data.email);
@@ -32,10 +34,7 @@ export default function Profile() {
         formData.append('image', file);
         formData.append('nickname', nickname);
         http.post('/profile', formData)
-            .then(resp => console.log(resp));
-
-        //window.location.href = window.location.pathname + window.location.search + window.location.hash;
-        window.location.reload(false);
+            .then(() => setImageSrc(`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`));
     }
 
     function ImageUpload(event) {
@@ -77,7 +76,7 @@ export default function Profile() {
                 </div>
             </div>
             <div>
-                <img className='pictureProfile' src={`${config.serverURL}/profile_pics/avatar_${localStorage.getItem('user_id')}.png`} alt='' />
+                <img className='pictureProfile' src={imageSrc} alt='' />
             </div>
             <br />
             <button onClick={save} className="buttonDesign" id="saveBtn" type='submit' >
