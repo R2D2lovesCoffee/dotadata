@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'r2d2lovescoffee@gmail.com',
-        pass: 'ogreshouldntbeinthero'
+        pass: JSON.parse(fs.readFileSync('./mailPass.json')).pass
     }
 });
 
