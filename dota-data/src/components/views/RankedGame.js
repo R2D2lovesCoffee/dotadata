@@ -10,7 +10,6 @@ function RankedGame() {
     const [start, setStart] = useState(false);
     const [message, setMessage] = useState('');
     const [opponentNickname, setOpponentNickname] = useState('');
-    const [opponentID, setOpponentID] = useState(-1);
     const [opponentScore, setOpponentScore] = useState(0);
     const [showTimer, setShowTimer] = useState(null);
     const [finished, setFinished] = useState(false);
@@ -34,13 +33,12 @@ function RankedGame() {
 
         setShowTimer(true);
         socket.on('opponent', opponent => {
-            http.loadImage(localStorage.getItem('user_id'))
+            http.loadImage(opponent.id)
                 .then(src => {
                     setImgSrc(src);
                 })
             setShowTimer(false);
             setOpponentNickname(opponent.nickname);
-            setOpponentID(opponent.id);
             setStart(true);
         });
         socket.on('gameFinished', report => {
