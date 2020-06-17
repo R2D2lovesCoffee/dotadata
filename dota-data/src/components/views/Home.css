@@ -265,6 +265,7 @@ input[type=text], select, textarea {
       display:block;
       font-size: 25px;
       margin: 0 auto;
+      margin-bottom: 16px;
   }
 
   #answerDesign{
@@ -355,4 +356,8 @@ input[type=text], select, textarea {
       #homeLink{
           margin-top: -0%;
       }
+  }
+
+  #marginLeft{
+      margin-left: 16px;
   }

@@ -23,26 +23,37 @@ Hero.findAll({
 }).then(heroes => heroes.map(hero => hero.dataValues))
     .then(heroes => {
         const heroRange = ['melee', 'ranged'];
-
-        heroes.map(hero => hero.range)[0] = 'melee';
-        heroes.map(hero => hero.range)[1] = 'ranged';
         let correct = null;
 
-        if (heroes.map(hero => hero.range)[0] === heroRange[0]) {
+        if (heroes[0].range === 'melee' && heroes[1].range === 'ranged') {
+            correct = Math.round(Math.random());
+            if (heroes[correct].range.indexOf('melee') === -1) {
+                var correctCheck = 1
+            } else {
+                correctCheck = 0;
+            }
+            question.setSubject(heroes[correctCheck].img_medium_src);
+        }
+        if (heroes[0].range === 'ranged' && heroes[1].range === 'melee') {
+            correct = Math.round(Math.random());
+            if (heroes[correct].range.indexOf('melee') === -1) {
+                var correctCheck = 1
+            } else {
+                correctCheck = 0;
+            }
+            question.setSubject(heroes[correctCheck].img_medium_src);
+        }
+        if (heroes[0].range === 'melee' && heroes[1].range === 'melee') {
             correct = 0;
+            question.setSubject(heroes[correct].img_medium_src);
         }
-        if (heroes.map(hero => hero.range)[1] === heroRange[1]) {
+        if (heroes[0].range === 'ranged' && heroes[1].range === 'ranged') {
             correct = 1;
+            question.setSubject(heroes[correct].img_medium_src);
         }
-        if (correct === null) {
-            if (heroes.map(hero => hero.range)[0] === heroRange[0]) {
-                correct = 0;
-            }
-            if (heroes.map(hero => hero.range)[1] === heroRange[1]) {
-                correct = 1;
-            }
-        }
+
+        console.log(correct);
         question.setAnswers(heroRange.map(heroR => heroR.charAt(0).toUpperCase() + heroR.slice(1)));
-        question.setSubject(heroes[correct].img_medium_src);
+        console.log(question);
         process.send({ question, correct });
     })
