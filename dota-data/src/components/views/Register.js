@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import http from '../../http';
 
 function Register() {
-    //let emailMessage = '';
-    //let passwordMessage = '';
+    let emailValid = true;
+    let passwordValid = true;
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,6 +12,7 @@ function Register() {
     const [message, setMessage] = useState('');
     const [emailMessage, setEmailMessage] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -28,24 +29,31 @@ function Register() {
     const register = () => {
         if (email.indexOf('@') === -1) {
             setEmailMessage('Email is not correct');
-            console.log(emailMessage);
-            return;
+            emailValid = false;
+        } else {
+            setEmailMessage('');
         }
         if (password.length <= 8) {
             setPasswordMessage('Password must have at least 8 characters');
-            console.log(passwordMessage)
-            return;
+            passwordValid = false;
+
+        } else {
+            setPasswordMessage('');
         }
-        if (password === confirmPassword) {
+        if (password === confirmPassword && (emailValid && passwordValid)) {
+            setStatusMessage('');
             http.post('/register', { email, password })
                 .then(resp => {
                     history.push('/login');
                 }).catch(error => {
-                    console.log(error);
                     if (error.message) {
                         setMessage(error.message);
+                    } else {
+                        setMessage('');
                     }
                 })
+        } else if (password !== confirmPassword) {
+            setStatusMessage('Confirm password not completed');
         }
     }
 
@@ -80,13 +88,20 @@ function Register() {
                 <div className="row">
                     <button id="centerBtn" className="soloGame" onClick={register} >REGISTER</button>
                 </div>
-                <div>
-                    {message}
+                <div className="row container">
+                    <div id="centerText">{message}</div>
+                </div>
+                <div className="row container">
+                    <div id="centerText">{statusMessage}</div>
                 </div>
 
-                {emailMessage ? <p>{emailMessage}</p> : <></>}
+                {emailMessage ? <div className="row container">
+                    <div id="centerText">{emailMessage}</div>
+                </div> : <></>}
 
-                {passwordMessage ? <p>{passwordMessage}</p> : <></>}
+                {passwordMessage ? <div className="row container">
+                    <div id="centerText"> {passwordMessage}</div>
+                </div> : <></>}
 
                 <div id="left">
                     <div>
