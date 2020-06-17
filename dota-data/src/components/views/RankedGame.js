@@ -3,6 +3,7 @@ import { socket } from '../../socket';
 import Game from '../Game';
 import Timer from '../Timer';
 import Report from '../Report';
+import http from '../../http';
 import './Home.css';
 
 function RankedGame() {
@@ -16,6 +17,7 @@ function RankedGame() {
     const [report, setReport] = useState(0);
     const [type, setType] = useState('ranked');
     const [finding, setFinding] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
 
     useEffect(() => () => {
         socket.off('opponent');
@@ -32,6 +34,10 @@ function RankedGame() {
 
         setShowTimer(true);
         socket.on('opponent', opponent => {
+            http.loadImage(localStorage.getItem('user_id'))
+                .then(src => {
+                    setImgSrc(src);
+                })
             setShowTimer(false);
             setOpponentNickname(opponent.nickname);
             setOpponentID(opponent.id);
@@ -68,7 +74,7 @@ function RankedGame() {
                 </span>
             </div> :
             <>
-                <p className="container" id="special">Opponent: <span>{opponentNickname}</span></p>
+                <p className="container" id="special">Opponent: <span>{opponentNickname}</span> <span><img id='rankedPicture' src={imgSrc} alt='' /></span></p>
                 <Game type={'ranked'} />
                 <p className="container" id="special">Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
             </>
