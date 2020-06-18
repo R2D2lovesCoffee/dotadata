@@ -52,8 +52,6 @@ Hero.findAll({
             question.setSubject(heroes[correct].img_medium_src);
         }
 
-        console.log(correct);
         question.setAnswers(heroRange.map(heroR => heroR.charAt(0).toUpperCase() + heroR.slice(1)));
-        console.log(question);
         process.send({ question, correct });
     })
