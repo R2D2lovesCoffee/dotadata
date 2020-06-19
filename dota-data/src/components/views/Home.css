@@ -361,3 +361,11 @@ input[type=text], select, textarea {
   #marginLeft{
       margin-left: 16px;
   }
+
+  img{
+      max-width: 100%;
+  }
+
+  .row{
+      text-align:center;
+  }

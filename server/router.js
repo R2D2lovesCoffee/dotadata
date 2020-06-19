@@ -144,4 +144,12 @@ router.get('/profile', auth.httpAuth, async (req, res) => {
     })
 })
 
+// GET NICKNAME
+router.get('/ranked-game', auth.httpAuth, async (req, res) => {
+    const { user_id } = req.decoded;
+    User.findOne({ raw: true, attributes: ['nickname'], where: { id: user_id } }).then(nickname => {
+        res.send(nickname)
+    })
+})
+
 module.exports = router;

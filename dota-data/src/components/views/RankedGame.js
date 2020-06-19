@@ -17,6 +17,8 @@ function RankedGame() {
     const [type, setType] = useState('ranked');
     const [finding, setFinding] = useState(false);
     const [imgSrc, setImgSrc] = useState('');
+    const [personalNickname, setPersonalNickname] = useState('');
+    const [personalImg, setPersonalImg] = useState('');
 
     useEffect(() => () => {
         socket.off('opponent');
@@ -27,6 +29,12 @@ function RankedGame() {
     }, [])
 
     const handleFindOpponent = () => {
+
+        http.get('/ranked-game')
+            .then(data => {
+                setPersonalNickname(data.nickname);
+            })
+
         setFinding(true);
         setMessage('We\'re finding you an opponent...');
         socket.emit('findOpponent');
@@ -36,6 +44,10 @@ function RankedGame() {
             http.loadImage(opponent.id)
                 .then(src => {
                     setImgSrc(src);
+                })
+            http.loadImage(localStorage.getItem('user_id'))
+                .then(personalSrc => {
+                    setPersonalImg(personalSrc);
                 })
             setShowTimer(false);
             setOpponentNickname(opponent.nickname);
@@ -72,14 +84,27 @@ function RankedGame() {
                 </span>
             </div> :
             <>
-                <p className="container" id="special">Opponent: <span>{opponentNickname}</span> <span><img id='rankedPicture' src={imgSrc} alt='' /></span></p>
+                <div className="container" id="special">
+                    <div className="row">
+                        <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <img id="rankedPicture" src={imgSrc} alt="" />
+                            {opponentNickname}
+                        </div>
+                        <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            VS
+                        </div>
+                        <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                            <img id="rankedPicture" src={personalImg} alt="" />
+                            {personalNickname}
+                        </div>
+                    </div>
+                </div>
                 <Game type={'ranked'} />
                 <p className="container" id="special">Opponent score: <span>{Number(opponentScore.toFixed(2))}</span></p>
             </>
     } else {
         return <Report dataRanked={report} type={type} />
     }
-
 }
 
 export default RankedGame;
