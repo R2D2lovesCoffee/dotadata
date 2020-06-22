@@ -48,6 +48,8 @@ export default function Profile() {
                 // }, 3000));
                 http.loadImage(localStorage.getItem('user_id')).then(src => setImageSrc(src));
             });
+        // without reloading the page the data in the DB is not going to reload, so we will render the same opponent nickname even tho he changes it and wants to play ranked after the update. So with this line we dinamically respond with the updated opponent nickname.
+        window.location.reload(true);
     }
 
     function ImageUpload(event) {
