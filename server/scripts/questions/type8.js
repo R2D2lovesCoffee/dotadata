@@ -40,7 +40,6 @@ Hero.findAll({
                         selections.push(arr[index]);
                         arr.splice(index, 1);
                     }
-
                     if (selections.indexOf((heroes.map(hero => hero.heroDetails.dataValues.ms)[correct])) === -1) {
                         var indexRemove = Math.floor(Math.random() * selections.length);
                         selections.splice(indexRemove, 1);
